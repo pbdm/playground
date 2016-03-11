@@ -76,5 +76,3 @@
 // $("#head-animation").headAnimation({
 //  'ratio': -50
 // });
-// toc
-//$(".post").toc();
