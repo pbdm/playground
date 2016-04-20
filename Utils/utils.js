@@ -1,13 +1,26 @@
-var scrollEventType;
-(PBDm.whichBrowser().firefox) ? scrollEventType = "DOMMouseScroll": scrollEventType = "mousewheel";
+//var scrollEventType;
+//(PBDm.whichBrowser().firefox) ? scrollEventType = "DOMMouseScroll": scrollEventType = "mousewheel";
 
 
-var jsonp = (url, params) => {
+export const jsonp = (url, params) => {
+  const serialize = function(obj, prefix) {
+    var str = [];
+    for (var p in obj) {
+      if (obj.hasOwnProperty(p)) {
+        var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+        str.push(typeof v === "object" ?
+          serialize(v, k) :
+          encodeURIComponent(k) + "=" + encodeURIComponent(v));
+      }
+    }
+    return str.join("&");
+  }
+
   return new Promise((resolve, reject) => {
     
     window.jsonP = window.jsonP || {};
     
-    const callbackId = jsonP.callbackId = jsonP.callbackId ? ++jsonP.callbackId : 1;
+    const callbackId = window.jsonP.callbackId = window.jsonP.callbackId ? ++window.jsonP.callbackId : 1;
 
     // 存储回调的数据
     let content; 
@@ -22,7 +35,7 @@ var jsonp = (url, params) => {
     
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = url + this.serialize(data);
+    script.src = url + serialize(data);
     script.async = true; 
 
     const removeScript = (e) => {
@@ -42,7 +55,7 @@ var jsonp = (url, params) => {
   });
 }
 
-var serialize = function(obj, prefix) {
+export const serialize = function(obj, prefix) {
   var str = [];
   for (var p in obj) {
     if (obj.hasOwnProperty(p)) {
