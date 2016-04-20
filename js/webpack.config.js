@@ -7,7 +7,7 @@ var packPath = path.join(__dirname, '/dist');
 
 module.exports = {
   entry: { 
-    js: './js/app.js'
+    js: './app.js'
   }, 
   output: {
     filename: 'bundle.js',
