@@ -67,3 +67,16 @@ export const serialize = function(obj, prefix) {
   }
   return str.join("&");
 }
+
+export const whichBrowser = function() {
+  var sys = {},
+    ua = navigator.userAgent.toLowerCase(),
+    s;
+  (s = ua.match(/msie ([\d.]+)/)) ? sys.ie = s[1]:
+    (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? sys.ie = s[1] : //ie11
+    (s = ua.match(/firefox\/([\d.]+)/)) ? sys.firefox = s[1] :
+    (s = ua.match(/chrome\/([\d.]+)/)) ? sys.chrome = s[1] :
+    (s = ua.match(/opera.([\d.]+)/)) ? sys.opera = s[1] :
+    (s = ua.match(/version\/([\d.]+).*safari/)) ? sys.safari = s[1] : 0;
+  return sys;
+}
