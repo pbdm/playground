@@ -1,20 +1,8 @@
 //var scrollEventType;
 //(PBDm.whichBrowser().firefox) ? scrollEventType = "DOMMouseScroll": scrollEventType = "mousewheel";
 
-
+// require serialize
 export const jsonp = (url, params) => {
-  const serialize = function(obj, prefix) {
-    var str = [];
-    for (var p in obj) {
-      if (obj.hasOwnProperty(p)) {
-        var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-        str.push(typeof v === "object" ?
-          serialize(v, k) :
-          encodeURIComponent(k) + "=" + encodeURIComponent(v));
-      }
-    }
-    return str.join("&");
-  }
 
   return new Promise((resolve, reject) => {
     
