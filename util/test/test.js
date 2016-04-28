@@ -17,7 +17,11 @@ test('serialize', t => {
   )
 })
 
-
+test('canUseWebp', t => {
+  t.is(
+    Utils.canUseWebP(), false
+  )
+})
 // don't know how to test jsonp...
 //test('jsonP', t => {
   //return Utils.jsonp(

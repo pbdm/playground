@@ -68,3 +68,16 @@ export const whichBrowser = function() {
     (s = ua.match(/version\/([\d.]+).*safari/)) ? sys.safari = s[1] : 0;
   return sys;
 }
+
+export const canUseWebP = function() {
+  var elem = document.createElement('canvas');
+
+  if (!!(elem.getContext && elem.getContext('2d'))) {
+    // was able or not to get WebP representation
+    return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+  }
+  else {
+    // very old browser like IE 8, canvas not supported
+    return false;
+  }
+}
