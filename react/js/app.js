@@ -1,7 +1,6 @@
 import { Component } from 'react'
-import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, Link, IndexLink, hashHistory, IndexRoute, withRouter } from 'react-router'
 
 class App extends Component {
   render() {
@@ -9,6 +8,7 @@ class App extends Component {
       <div>
         <h1>App</h1>
         <ul>
+          <li><IndexLink to="/" activeClassName="active">Home</IndexLink></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/inbox">Inbox</Link></li>
         </ul>
@@ -18,13 +18,39 @@ class App extends Component {
   }
 }
 
+class Home extends Component {
+  handle() {
+    require.ensure([], function (require) {
+        require('./child')
+    })
+  }
+  render() {
+    return <div>
+              <h3>Home</h3>
+              <div onClick={this.handle}>click</div>
+           </div>          
+  }
+}
+
 class About extends Component {
+  componentDidMount() {
+    this.props.router.setRouteLeaveHook(this.props.route, () => {
+        return 'You have unsaved information, are you sure you want to leave this page?'
+    })
+  }
   render() {
     return <h3>About</h3>
   }
 }
 
+class NoMatch extends Component {
+  render() {
+    return <h3>NoMatch</h3>
+  }
+}
+
 class Inbox extends Component {
+
   render() {
     return (
       <div>
@@ -44,13 +70,15 @@ class Message extends Component {
 class Root extends Component {
   render() {
     return (
-      <Router history={browserHistory}>
+      <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <Route path="about" component={About} />
+          <IndexRoute component={Home}/>
+          <Route path="about" component={withRouter(About)} />
           <Route path="inbox" component={Inbox}>
             <Route path="messages/:id" component={Message} />
           </Route>
         </Route>
+        <Route path="*" component={NoMatch} />
       </Router>
     );
   }
