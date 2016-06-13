@@ -4,3 +4,6 @@
 [submodule "scaffold"]
 	path = scaffold
 	url = https://github.com/pbdm/playground-scaffold.git
+[submodule "weixinshare"]
+	path = weixinshare
+	url = https://github.com/pbdm/playground-weixinshare.git
