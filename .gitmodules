@@ -7,3 +7,6 @@
 [submodule "weixinshare"]
 	path = weixinshare
 	url = https://github.com/pbdm/playground-weixinshare.git
+[submodule "base"]
+	path = base
+	url = https://github.com/pbdm/playground-base.git
