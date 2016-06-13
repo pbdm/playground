@@ -5,26 +5,26 @@
 export const jsonp = (url, params) => {
 
   return new Promise((resolve, reject) => {
-    
+
     window.jsonP = window.jsonP || {};
-    
+
     const callbackId = window.jsonP.callbackId = window.jsonP.callbackId ? ++window.jsonP.callbackId : 1;
 
     // 存储回调的数据
-    let content; 
-    
+    let content;
+
     const callbackName = `callback_${callbackId}`
-    
+
     window.jsonP[callbackName] = (data) => {
-      content = data; 
-    } 
-    
+      content = data;
+    }
+
     const data = Object.assign({}, params, {callback: `jsonP.${callbackName}`})
-    
+
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = url + serialize(data);
-    script.async = true; 
+    script.async = true;
 
     const removeScript = (e) => {
       document.body.removeChild(script);
@@ -35,10 +35,10 @@ export const jsonp = (url, params) => {
         reject('error');
       }
     }
-  
+
     script.addEventListener('load', removeScript, false);
     script.addEventListener('error', removeScript, false)
-    
+
     document.body.appendChild(script);
   });
 }
@@ -72,12 +72,21 @@ export const whichBrowser = function() {
 export const canUseWebP = function() {
   var elem = document.createElement('canvas');
 
-  if (!!(elem.getContext && elem.getContext('2d'))) {
+  if ((elem.getContext && elem.getContext('2d'))) {
     // was able or not to get WebP representation
-    return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-  }
-  else {
+    return elem.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  } else {
     // very old browser like IE 8, canvas not supported
     return false;
+  }
+}
+
+export const fetchComputedStyle = function(element, property) {//定义新函数
+  if (window.getComputedStyle) {
+    var computedStyles = window.getComputedStyle(element);//获取接口
+    if (computedStyles) {
+      property = property.toLowerCase();
+      return computedStyles.getPropertyValue(property);
+    }
   }
 }
