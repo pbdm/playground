@@ -1,22 +1,21 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var packPath = path.join(__dirname, '/dist');
 
 module.exports = {
-  entry: { 
+  entry: {
     js: './app.js'
-  }, 
+  },
   output: {
-    filename: 'bundle.js',
-    path: packPath 
+    filename: 'bundle-[chunkhash].js',
+    path: packPath
   },
   plugins: [
     new CleanWebpackPlugin(packPath, {
       root: __dirname,
-      verbose: true, 
+      verbose: true,
       dry: false
     }),
     new HtmlWebpackPlugin({

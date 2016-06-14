@@ -1,6 +1,14 @@
 console.log('app.js');
-if (location.hash === '#inheritance') {
-  require('./components/oo')
+if (location.hash === '#oo') {
+  require.ensure([], function(require) {
+    require('./components/oo')
+  });
 } else if (location.hash === '#promise') {
-  require('./components/promise.js')
+  require.ensure([], function(require) {
+    require('./components/promise')
+  });
+} else if (location.hash === '#weixinshare') {
+  require.ensure([], function(require) {
+    require('./components/weixinshare')
+  });
 }
