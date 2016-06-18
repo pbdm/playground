@@ -12,6 +12,7 @@ module.exports = {
     filename: 'bundle-[chunkhash].js',
     path: packPath
   },
+  devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(packPath, {
       root: __dirname,
