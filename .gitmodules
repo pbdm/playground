@@ -61,3 +61,6 @@
 [submodule "vendor/flowchart.js"]
 	path = vendor/flowchart.js
 	url = https://github.com/adrai/flowchart.js.git
+[submodule "vendor/react-quill"]
+	path = vendor/react-quill
+	url = https://github.com/zenoamaro/react-quill.git
