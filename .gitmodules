@@ -55,3 +55,9 @@
 [submodule "vendor/iscroll"]
 	path = vendor/iscroll
 	url = https://github.com/cubiq/iscroll.git
+[submodule "vue"]
+	path = vue
+	url = https://github.com/pbdm/playground-vue.git
+[submodule "vendor/flowchart.js"]
+	path = vendor/flowchart.js
+	url = https://github.com/adrai/flowchart.js.git
