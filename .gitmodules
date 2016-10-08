@@ -64,3 +64,12 @@
 [submodule "vendor/react-quill"]
 	path = vendor/react-quill
 	url = https://github.com/zenoamaro/react-quill.git
+[submodule "css"]
+	path = css
+	url = https://github.com/pbdm/playground-css.git
+[submodule "vendor/ueditor"]
+	path = vendor/ueditor
+	url = https://github.com/fex-team/ueditor.git
+[submodule "vendor/draft-js"]
+	path = vendor/draft-js
+	url = https://github.com/facebook/draft-js.git
