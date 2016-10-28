@@ -73,3 +73,9 @@
 [submodule "vendor/draft-js"]
 	path = vendor/draft-js
 	url = https://github.com/facebook/draft-js.git
+[submodule "vendor/form"]
+	path = vendor/form
+	url = https://github.com/react-component/form.git
+[submodule "vendor/mobx"]
+	path = vendor/mobx
+	url = https://github.com/mobxjs/mobx.git
