@@ -79,3 +79,9 @@
 [submodule "vendor/mobx"]
 	path = vendor/mobx
 	url = https://github.com/mobxjs/mobx.git
+[submodule "vendor/react-tap-event-plugin"]
+	path = vendor/react-tap-event-plugin
+	url = https://github.com/zilverline/react-tap-event-plugin.git
+[submodule "vendor/react-virtualized"]
+	path = vendor/react-virtualized
+	url = https://github.com/bvaughn/react-virtualized.git
