@@ -88,9 +88,6 @@
 [submodule "vendor/fetch"]
 	path = vendor/fetch
 	url = https://github.com/github/fetch.git
-[submodule "todolist"]
-	path = todolist
-	url = https://github.com/pbdm/playground-todolist.git
 [submodule "js"]
 	path = js
 	url = https://github.com/pbdm/playground-js.git
