@@ -85,3 +85,6 @@
 [submodule "vendor/react-virtualized"]
 	path = vendor/react-virtualized
 	url = https://github.com/bvaughn/react-virtualized.git
+[submodule "vendor/fetch"]
+	path = vendor/fetch
+	url = https://github.com/github/fetch.git
