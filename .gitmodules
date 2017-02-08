@@ -91,3 +91,6 @@
 [submodule "js"]
 	path = js
 	url = https://github.com/pbdm/playground-js.git
+[submodule "vendor/todomvc"]
+	path = vendor/todomvc
+	url = https://github.com/tastejs/todomvc.git
