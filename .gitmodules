@@ -1,15 +1,6 @@
-[submodule "react"]
-	path = react
-	url = https://github.com/pbdm/playground-react.git
-[submodule "scaffold"]
-	path = scaffold
-	url = https://github.com/pbdm/playground-scaffold.git
 [submodule "weixinshare"]
 	path = weixinshare
 	url = https://github.com/pbdm/playground-weixinshare.git
-[submodule "base"]
-	path = base
-	url = https://github.com/pbdm/playground-base.git
 [submodule "vendor/react"]
 	path = vendor/react
 	url = https://github.com/facebook/react.git
@@ -64,9 +55,6 @@
 [submodule "vendor/react-quill"]
 	path = vendor/react-quill
 	url = https://github.com/zenoamaro/react-quill.git
-[submodule "css"]
-	path = css
-	url = https://github.com/pbdm/playground-css.git
 [submodule "vendor/ueditor"]
 	path = vendor/ueditor
 	url = https://github.com/fex-team/ueditor.git
