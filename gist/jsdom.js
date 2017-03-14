@@ -1,3 +1,4 @@
+//  "jsdom": "^8.4.0"
 var jsdom = require("jsdom");
 
 jsdom.env({

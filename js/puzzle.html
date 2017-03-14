@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title></title>
+<style>
+  .answer {
+    padding-bottom: 20px;
+    line-height: 30px;
+    width: 410px;
+    word-wrap: break-word;
+}
+</style>
+</head>
+<body>
+  <div ng-app>
+    <div class="answer" ng-controller="Q1">
+        Q1: Result array is: <br/>
+        {{result}}
+    </div>
+    <div class="answer" ng-controller="Q2">
+        Q2: The String is: {{result}}
+    </div>
+</div>
+<script src="//cdn.bootcss.com/angular.js/1.1.1/angular.min.js"></script>
+<script>
+  "use strict";
+
+/**
+ * Question 1
+ * Given a array of 10,000 random intergers, select the biggest 100 numbers.
+ * 1) The order of the result numbers does not matter;
+ * 2) Take care about the algorithm performance and big O complexity.
+ */
+
+var ARRAY_LENGTH = 10000, CHILD_LENGTH = 100;
+
+var genArray = function() {
+    var myArray = [];
+    for(var i = 0; i < ARRAY_LENGTH; i++) { 
+        myArray.push(parseInt(ARRAY_LENGTH * Math.random()));     
+    }
+    return myArray;
+};
+
+var quickSort = function(arr) {
+    var len = arr.length,
+        key,
+        loc;
+    for (var i = 0; i < len; i++) { 
+        key = arr[i];
+        loc = i;
+        for (var j = i + 1; j < len; j++) {
+            if (arr[j] < key) {
+                key = arr[j];
+                loc = j;
+            }
+        }
+        arr[loc] = arr[i];
+        arr[i] = key;
+    }
+    return arr;
+};
+
+var childSort = function(arr) {
+    var len = arr.length,
+        tmp;
+    for (var i = 0; i < len; i++) { 
+        if (resultArray[i] > resultArray[i + 1]) {
+            tmp = resultArray[i];
+            resultArray[i] = resultArray[i + 1];
+            resultArray[i + 1] = tmp;
+        } else {
+            return arr;
+        }
+    }
+    return arr;
+};
+
+var myArray = genArray();
+var resultArray = myArray.slice(0,CHILD_LENGTH);
+quickSort(resultArray);
+for(var i = CHILD_LENGTH; i < ARRAY_LENGTH; i++) { 
+    var tmp = myArray[i];
+    if (tmp > resultArray[0]) {
+        resultArray[0] = tmp;
+        childSort(resultArray);
+    }
+}
+
+function Q1($scope) {
+  $scope.result = resultArray;
+}
+
+/**
+ * Question 2
+ * Find the string which has this hash: 25267566250558
+ * The string has length 8.
+ * Characters can be from: c,e,i,a,r,w,u,s,p
+ * The hash function works like this:
+ * hash(str):
+   1. LETTERS = c, e, i, a, r, w, u, s, p
+   2. h = 7
+   3. for c in str:
+       1. i = index of c in LETTERS
+       2. h = 37 * h + i
+   4. return h
+ */
+
+var STR_LENGTH = 8,
+    hash_cat = ["c", "e", "i", "a", "r", "w", "u", "s", "p"],
+    myHash = 25267566250558,
+    tmp,
+    str = "";
+
+for(var i = 0; i < STR_LENGTH; i++) { 
+    tmp = myHash % 37;
+    str += hash_cat[tmp - 1];
+    myHash = (myHash - tmp) / 37 ; 
+}
+console.log(myHash);
+
+function Q2($scope) {
+  $scope.result = str;
+}
+
+
+</script>
+</body>
+</html>

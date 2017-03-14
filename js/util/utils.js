@@ -57,9 +57,9 @@ export const serialize = function(obj, prefix) {
 }
 
 export const whichBrowser = function() {
-  var sys = {},
-    ua = navigator.userAgent.toLowerCase(),
-    s;
+  var sys = {}
+  var ua = navigator.userAgent.toLowerCase()
+  var s;
   (s = ua.match(/msie ([\d.]+)/)) ? sys.ie = s[1]:
     (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? sys.ie = s[1] : //ie11
     (s = ua.match(/firefox\/([\d.]+)/)) ? sys.firefox = s[1] :
@@ -89,4 +89,17 @@ export const fetchComputedStyle = function(element, property) {//定义新函数
       return computedStyles.getPropertyValue(property);
     }
   }
+  return true;
+}
+
+// html转译字符
+export const htmlEncode = function(str) {
+  var div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+export const htmlDecode = function(str) {
+  var div = document.createElement("div");
+  div.innerHTML = str;
+  return div.innerHTML;
 }

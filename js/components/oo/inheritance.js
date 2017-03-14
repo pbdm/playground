@@ -6,7 +6,5 @@ var Animal = function(name) {
   }
 }
 
-debugger
-
 var pet = new Animal('pet');
 pet.run();
