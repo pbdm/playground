@@ -1,4 +1,5 @@
 // WIP
+// http://jimliu.net/2017/02/04/a-failed-attemption-to-js-linq/
 
 Array.prototype.asQueryable = function() {
   // console.log('array')
