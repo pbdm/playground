@@ -73,3 +73,6 @@
 [submodule "vendor/todomvc"]
 	path = vendor/todomvc
 	url = https://github.com/tastejs/todomvc.git
+[submodule "vendor/react-native"]
+	path = vendor/react-native
+	url = https://github.com/facebook/react-native.git
