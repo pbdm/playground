@@ -79,3 +79,6 @@
 [submodule "vendor/react-native-web"]
 	path = vendor/react-native-web
 	url = https://github.com/necolas/react-native-web.git
+[submodule "vendor/recharts"]
+	path = vendor/recharts
+	url = https://github.com/recharts/recharts.git
