@@ -88,7 +88,6 @@ test.only('this will be the only test that runs', () => {
   expect(true).toBe(false);
 });
 
-*/
 
 describe('test scope', () => {
   beforeEach(() => {
@@ -100,7 +99,41 @@ describe('test scope', () => {
   });
 });
 
-const myMock = jest.fn();
-myMock('1');
-myMock('a', 'b');
-console.log(myMock.mock.calls);
+*/
+
+// Mock functions
+function each(items, callback) {
+  for (var index = 0; index < items.length; index++) {
+    callback(items[index]);
+  }
+}
+it('resolves to lemon', () => {
+  const mockCallback = jest.fn();
+  each([0, 1], mockCallback);
+  console.log(mockCallback.mock.calls);
+  // The mock function is called twice
+  expect(mockCallback.mock.calls.length).toBe(2);
+
+  // The first argument of the first call to the function was 0
+  expect(mockCallback.mock.calls[0][0]).toBe(0);
+  // The first argument of the second call to the function was 1
+  expect(mockCallback.mock.calls[1][0]).toBe(1);
+
+  const myMock = jest.fn();
+  // const a = new myMock();
+  // const b = {};
+  // const bound = myMock.bind(b);
+  // bound();
+
+  console.log(myMock.mock.instances);
+
+  myMock.mockReturnValueOnce(10)
+    .mockReturnValueOnce('x')
+    // .mockReturnValue(true);
+  console.log(myMock(), myMock(), myMock(), myMock());
+});
+// const myMock = jest.fn();
+// myMock('1');
+// myMock('a', 'b');
+// console.log(myMock.mock.calls);
+

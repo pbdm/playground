@@ -82,3 +82,6 @@
 [submodule "vendor/recharts"]
 	path = vendor/recharts
 	url = https://github.com/recharts/recharts.git
+[submodule "vendor/jest"]
+	path = vendor/jest
+	url = https://github.com/facebook/jest.git
