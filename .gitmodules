@@ -85,3 +85,12 @@
 [submodule "vendor/jest"]
 	path = vendor/jest
 	url = https://github.com/facebook/jest.git
+[submodule "vendor/react-native-testing-example"]
+	path = vendor/react-native-testing-example
+	url = https://github.com/ferrannp/react-native-testing-example.git
+[submodule "vendor/react-native-elements"]
+	path = vendor/react-native-elements
+	url = https://github.com/react-native-training/react-native-elements.git
+[submodule "vendor/ant-design"]
+	path = vendor/ant-design
+	url = https://github.com/ant-design/ant-design.git
