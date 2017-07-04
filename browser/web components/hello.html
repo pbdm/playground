@@ -1,0 +1,23 @@
+<template id="tpl">
+  <style>
+    div {
+      color: red;
+    }
+  </style>
+  <div>dsd</div>
+</template>
+<script>
+  var tpl = document.currentScript.ownerDocument.querySelector('#tpl');
+  var proto = Object.create(HTMLElement.prototype, {
+    attachedCallback: {
+      value: function () {
+        var clone = document.importNode(tpl.content, true);
+        this.createShadowRoot().appendChild(clone);
+      }
+    }
+  });
+  document.registerElement('x-message', {
+    prototype: proto
+  });
+
+</script>
