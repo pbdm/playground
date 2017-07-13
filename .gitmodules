@@ -94,3 +94,6 @@
 [submodule "vendor/ant-design"]
 	path = vendor/ant-design
 	url = https://github.com/ant-design/ant-design.git
+[submodule "vendor/metro-bundler"]
+	path = vendor/metro-bundler
+	url = https://github.com/facebook/metro-bundler.git

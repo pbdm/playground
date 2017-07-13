@@ -19,12 +19,10 @@
   },
   "homepage": "https://github.com/pbdm/playground",
   "dependencies": {
-    "blueimp-md5": "^2.3.0",
-    "clean-webpack-plugin": "^0.1.8",
-    "html-webpack-plugin": "^2.9.0",
-    "webpack": "^1.12.14"
-  },
-  "devDependencies": {
-    "webpack-dev-server": "^1.16.2"
+    "blueimp-md5": "*",
+    "clean-webpack-plugin": "*",
+    "html-webpack-plugin": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
   }
 }
