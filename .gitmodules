@@ -97,3 +97,6 @@
 [submodule "vendor/metro-bundler"]
 	path = vendor/metro-bundler
 	url = https://github.com/facebook/metro-bundler.git
+[submodule "vendor/electron-quick-start"]
+	path = vendor/electron-quick-start
+	url = https://github.com/electron/electron-quick-start
