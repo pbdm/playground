@@ -100,3 +100,9 @@
 [submodule "vendor/electron-quick-start"]
 	path = vendor/electron-quick-start
 	url = https://github.com/electron/electron-quick-start
+[submodule "vendor/redux-observable"]
+	path = vendor/redux-observable
+	url = https://github.com/redux-observable/redux-observable.git
+[submodule "vendor/vue"]
+	path = vendor/vue
+	url = https://github.com/vuejs/vue.git
