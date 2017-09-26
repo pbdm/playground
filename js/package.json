@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack -w --progress",
-    "server": "webpack-dev-server --hot --progress --port 8081",
+    "server": "webpack-dev-server --hot --progress --port 8091",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

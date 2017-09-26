@@ -106,3 +106,24 @@
 [submodule "vendor/vue"]
 	path = vendor/vue
 	url = https://github.com/vuejs/vue.git
+[submodule "vendor/lottie-react-native"]
+	path = vendor/lottie-react-native
+	url = https://github.com/airbnb/lottie-react-native.git
+[submodule "vendor/razzle"]
+	path = vendor/razzle
+	url = https://github.com/jaredpalmer/razzle.git
+[submodule "vendor/ReactCasts"]
+	path = vendor/ReactCasts
+	url = https://github.com/cassiozen/ReactCasts
+[submodule "vendor/babel"]
+	path = vendor/babel
+	url = https://github.com/babel/babel.git
+[submodule "vendor/ant-design-mobile"]
+	path = vendor/ant-design-mobile
+	url = https://github.com/ant-design/ant-design-mobile.git
+[submodule "vendor/element"]
+	path = vendor/element
+	url = https://github.com/ElemeFE/element.git
+[submodule "vendor/rax"]
+	path = vendor/rax
+	url = https://github.com/alibaba/rax.git
