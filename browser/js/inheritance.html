@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by pbdm (http://jsbin.com/naraluy/10/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="inheritance">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+<script id="jsbin-javascript">
+function SuperType() {
+	this.name = 'parent';
+}
+
+SuperType.prototype.sex = 'male'
+
+function extend(SuperType, obj) {
+  var subType = function() {
+    var scope = this;
+    Object.keys(obj).forEach(function(key) {
+      scope[key] = obj[key];
+    })
+    this.nick = obj.nick
+  	SuperType.call(this);
+  }
+  subType.prototype = Object.create(SuperType.prototype);
+  subType.prototype.constructor = subType;
+	return subType
+}
+
+var SubType = extend(SuperType, {
+  nick: 'dd',
+  user: 'cc'
+});
+
+var instance = new SubType();
+console.log(instance);
+</script>
+</body>
+</html>

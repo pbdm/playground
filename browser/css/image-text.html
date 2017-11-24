@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+	<title>图文列表布局</title>
+  <style>
+    ol,ul {
+      padding: 0;
+      list-style: none;
+    }
+    .avatar {
+      width: 30%;
+    }
+    .first .avatar {
+      float: left;
+      margin-right: 10px;
+    }
+    .content {
+      overflow: hidden;
+      word-break: break-all;
+    }
+    .second .avatar {
+      float: right;
+      margin-left: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <ul>
+    <li class='first'>
+      <img class='avatar' src='../img/icon.png'>
+      <div class='content'>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+    </li>
+    <li class='second'>
+      <img class='avatar' src='../img/icon.png'>
+      <div class='content'>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+    </li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>preventDefault example</title>
+<script>
+function Init () {
+    var myTextbox = document.getElementById('my-textbox');
+    myTextbox.addEventListener( 'keypress', checkName, false );
+}
+
+function checkName(evt) {
+    var charCode = evt.charCode;
+    if (charCode != 0) {
+        if (charCode < 97 || charCode > 122) {
+            evt.preventDefault();
+            alert(
+                "Please use lowercase letters only."
+                + "\n" + "charCode: " + charCode + "\n"
+            );
+        }
+    }
+} 
+</script>
+</head> 
+<body onload="Init ()"> 
+    <p>Please enter your name using lowercase letters only.</p> 
+    <form> 
+        <input type="text" id="my-textbox" /> 
+    </form> 
+</body> 
+</html>

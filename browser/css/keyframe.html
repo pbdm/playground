@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>keyframe</title>
+<style>
+  .ani {
+  width: 480px;
+  height: 320px;
+  margin: 50px auto;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  background-size: cover;
+  background-position: center;
+  -webkit-animation-name: "loops";
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes"loops" {
+  0% {
+    background: red;
+  }
+  25% {
+    background: green;
+  }
+  50% {
+    background: blue;
+  }
+  75% {
+    background: yellow;
+  }
+  100% {
+    background: black;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="ani"></div>
+
+</body>
+</html>
