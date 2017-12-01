@@ -24,7 +24,7 @@ console.log('--寄生组合式继承--')
 
 function inheritPrototoye(subType, superType) {
   subType.prototype = Object.create(superType.prototype)
-  // 因为在线面的SuperType.call方法中已经调用了父类的构造函数, 所以这里要修复一下
+  // 因为在前面的SuperType.call方法中已经调用了父类的构造函数, 所以这里要修复一下
   subType.prototype.constructor = subType
 }
 

@@ -1,0 +1,29 @@
+<html>
+    
+    <head>
+      <title>this</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    
+    <body>
+      <script>
+        var a = {
+          b: function(arg, arg2) {
+            console.log(this)
+            console.log(arg);
+            console.log(arg2);
+          }
+        }   
+        a.b();
+        var c = a.b;
+        c();
+        var d = a.b.bind(a);
+        d('dd');
+        c.call(a, 'dd', "cc");
+        c.apply(a, ["d", "dd"]);
+        [].slice === Array.prototype.slice //true
+        new Array().slice === [].slice // true
+      </script>
+    </body>
+    
+    </html>

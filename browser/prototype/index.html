@@ -1,0 +1,21 @@
+<html>
+    
+    <head>
+      <title>prototype</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
+    
+    <body>
+      <script>
+        var a = function() {
+          this.c = {}
+        }
+        a.prototype.b = {};
+        var d = new a();
+        var f = new a();
+        d.c === f.c; // false
+        d.b === f.b; // true
+      </script>
+    </body>
+    
+    </html>

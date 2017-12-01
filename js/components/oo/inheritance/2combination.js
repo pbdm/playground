@@ -10,12 +10,13 @@ SuperType.prototype.sayName = function () {
   console.log(this.name)
 }
 
-// 但是父类的构造函数调用了两遍
+// 在子类构造函数中执行了一遍父类构造函数
 function SubType(name, age) {
   SuperType.call(this, name)
   this.age = age;
 }
 
+// 在实现子类原型的类式继承时又调用了一遍父类构造函数
 SubType.prototype = new SuperType();
 
 SubType.prototype.sayAge = function() {

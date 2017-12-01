@@ -4,13 +4,13 @@ require('net').createServer(function(sock) {
     sock.write('Transfer-Encoding: chunked\r\n');
     sock.write('\r\n');
 
-    sock.write('b\r\n');
-    sock.write('01234567890\r\n');
+    sock.write('c\r\n');
+    sock.write('01234567890d\r\n');
 
     sock.write('5\r\n');
     sock.write('12345\r\n');
 
-    // sock.write('0\r\n');
+    sock.write('0\r\n');
     sock.write('\r\n');
   });
 }).listen(9090, '127.0.0.1');
