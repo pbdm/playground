@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Ajax</title>
+</head>
+
+<body>
+  <script>
+    function req(data, url) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+      var a = [{
+        b: 'c',
+        d: 'e'
+      }];
+      xhr.send('msg=' 
+      + JSON.stringify(a));
+    }
+    req({a:'b'}, 'www.example.coms?a=b')
+  </script>
+</body>
+
+</html>

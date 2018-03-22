@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Form</title>
+  <style>
+    .btn {
+      display: block;
+      width: 100%;
+    }
+    .wrapper {
+      float: right;
+    }
+  
+    </style>
+</head>
+
+<body>
+  <form onsubmit="sub()">
+    <label for="GET-name">Name:</label>
+    <input id="GET-name" type="text" name="name">
+    <!-- 测试button 的 渲染 -->
+    <div class='wrapper'>
+     <button class='btn'>123</button>
+    </div>
+    <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter1">
+    <input type="checkbox" id="sbscribeNews" name="subscribe" value="newsletter2">
+    <input type="checkbox"> 
+    <input type="submit" value="Save">
+
+  </form> 
+  <script>
+      document.querySelector('form').addEventListener('submit', (e) => {
+        const formData = new FormData(e.target);
+        debugger
+        // Now you can use formData.get('foo'), for example.
+        // Don't forget e.preventDefault() if you want to stop normal form .submission
+      });
+    </script>
+</body>
+
+</html>

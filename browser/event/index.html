@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>event</title>
+  <style>
+    body {
+      background: red;
+    }
+    #btn {
+      background: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="btn">
+    <div id="inner">inner</div>
+    btn</div>
+  <script>
+    const obj = document.getElementById('btn');
+    const inner = document.getElementById('inner');
+    obj.addEventListener("alert", function (e) {
+      debugger
+      // return false
+      // e.preventDefault();
+      // debugger
+      // console.log(e)
+    });
+    inner.addEventListener("alert", function (e) {
+      debugger
+      // return false
+      // e.preventDefault();
+      // debugger
+      // console.log(e)
+    });
+    // create and dispatch the event
+    var event = new TouchEvent("alert", {
+      bubbles: true,
+      cancelable: true
+    });
+    const cancalled = !inner.dispatchEvent(event);
+    console.log(cancalled)
+  </script>
+</body>
+
+</html>

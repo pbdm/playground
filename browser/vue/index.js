@@ -6,6 +6,17 @@ var app = new Vue({
   created: function () {
     // `this` 指向 vm 实例
     console.log('message is: ' + this.message)
+  },
+  methods: {
+    reverseMessage: function() {
+      this.message = this.message.split('').reverse().join('');
+    },
+    cap: function() {
+      console.log('cap')
+    },
+    bub: function() {
+      console.log('bub');
+    }
   }
 });
 

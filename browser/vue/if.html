@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Vue</title>
+</head>
+
+<body>
+  <div id="app"> 
+    <div v-if="type === 'A'">
+      A
+    </div>
+    <div v-else-if="type === 'B'">
+      B
+    </div>z
+    <div v-else-if="type === 'C'">
+      C
+    </div>
+    <div v-else>
+      Not A/B/C
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@2.5.0/dist/vue.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
