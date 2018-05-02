@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Performance</title>
+</head>
+<body>
+  <script>
+    window.performance.mark('mark_fully_loaded');
+    setTimeout(function(){
+      window.performance.mark('mark_fully_loaded');
+      window.performance.measure('mark_fully_loaded')
+    }, 500)
+  </script>
+</body>
+</html>
