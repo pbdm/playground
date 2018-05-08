@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import './style.scss';
-import { getScrollParent, getStylePrefix } from '../../libs/dom';
+import { getScrollParent, getStylePrefix } from '../libs/dom';
 
 // 下拉组件
 /*
