@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>trapezoid</title>
+<style>
+  body {
+    padding-top: 20px;
+  }
+  #left {
+    display: inline-block;
+    width: 200px; 
+    height: 200px;
+    /* : pink; */
+    transform: skew(-20deg, 0);
+    overflow: hidden;
+    border-right: 5px solid #fff;
+  }
+
+  #image {
+    box-shadow: 0 0 0 5px white, 0 0 0 10px red;
+    transform: skew(20deg, 0);
+    background: url("https://www.w3schools.com/html/pulpitrock.jpg");
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    margin-left: 51px;
+    margin-top: 10px;
+  }
+  #right {
+    display: inline-block;
+    width: 200px; 
+    height: 200px;
+    /* background: blue; */
+    margin-left: -41px;
+    background: url("https://www.w3schools.com/html/img_girl.jpg");
+    background-size: 100% 100%;
+    
+  }
+</style>
+</head>
+<body>
+  <div id="left">
+    <div id="image"></div></div>
+  </div>
+  <div id="right"></div>
+
+</div>
+</body>
+</html>
