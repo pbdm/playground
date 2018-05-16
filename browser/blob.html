@@ -40,8 +40,9 @@ var blob = b64toBlob(b64Data, contentType);
 </script>
 </head> 
 <body> 
-  <input id="input" type="file" id="fileupload" />
+  <input id="input" type="file" />
   <img id="img"/>
+  <div id="upload">upload</div>
 <script>
 var img = document.getElementById('img')
 var inp = document.getElementById('input')
@@ -55,6 +56,21 @@ reader.onload = function(e) {
   img.src = text;
 }
 */
+document.getElementById('upload').addEventListener('click', function(){
+  document.getElementById('input').dispatchEvent(new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true
+  }));
+})
+document.getElementById('input').addEventListener('change', (e) => {
+  var file = e.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var dataURL = reader.result;
+    debugger
+  }
+  reader.readAsDataURL(file);
+})
 </script>
 </body> 
 </html>
