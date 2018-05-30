@@ -56,18 +56,20 @@ reader.onload = function(e) {
   img.src = text;
 }
 */
+
 document.getElementById('upload').addEventListener('click', function(){
   document.getElementById('input').dispatchEvent(new MouseEvent('click', {
       bubbles: true,
       cancelable: true
   }));
 })
+
 document.getElementById('input').addEventListener('change', (e) => {
   var file = e.target.files[0];
   var reader = new FileReader();
   reader.onload = function (e) {
     var dataURL = reader.result;
-    debugger
+    img.src = dataURL;
   }
   reader.readAsDataURL(file);
 })
