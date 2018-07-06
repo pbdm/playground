@@ -1,6 +1,9 @@
+<script>
+// 在用户点击和 异步执行均完成后执行某个函数
 function pro() {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      console.log('5000ms timeout')
       res(true)
     }, 5000);
   })
@@ -15,13 +18,14 @@ function done() {
 var promiseFinish = false;
 var clicked = false;
 
-
-pro().then((data)=> {
+pro().then((data) => {
   promiseFinish = true;
   done();
 });
 
 document.addEventListener('click', () => {
+  console.log('clicked')
   clicked = true;
   done();
 });
+</script>

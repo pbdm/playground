@@ -3,9 +3,25 @@ var app = new Vue({
   data: {
     message: 'Hello Vue!'
   },
+  props: {
+    // 检测类型
+    height: Number,
+    // 检测类型 + 其他验证
+    age: {
+      type: Number,
+      default: 0,
+      required: true,
+      validator: function (value) {
+        return value >= 0
+      }
+    }
+  },
+  propsData: {
+    height: 20
+  },
   created: function () {
     // `this` 指向 vm 实例
-    console.log('message is: ' + this.message)
+    // console.log('message is: ' + this.message)
   },
   methods: {
     reverseMessage: function() {

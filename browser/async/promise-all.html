@@ -1,0 +1,16 @@
+<script>
+// https://zhuanlan.zhihu.com/p/25743960
+var p1 = Promise.resolve(3);
+var p2 = Promise.reject(2).catch(function (e) {
+  return e
+});
+var p3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 100, "foo");
+});
+
+Promise.all([p1, p2, p3]).then(values => {
+  console.log(values); 
+}).catch(function (err) {
+  console.log(err); // 如果 p2 不 catch 住就会走到这里
+});
+</script>

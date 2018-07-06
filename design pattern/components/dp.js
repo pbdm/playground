@@ -1,6 +1,7 @@
 console.log('design pattern');
 
 // 通用的惰性单例
+// https://github.com/alexreardon/memoize-one 这里有一个类似的库?!
 var getSingle = function(fn) {
   var result;
   return function() {

@@ -1,0 +1,34 @@
+<style>
+  #tran {
+    width: 100px;
+    height: 100px;
+    background: green;
+    transition: width 1s ease 0s;
+  }
+  #tran:hover {
+    width: 200px;
+  }
+  #anmi {
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
+  #anmi:hover {
+    animation: 1s rainbow;
+  }
+  @keyframes rainbow {
+    0% { background: #c00; }
+    50% { background: orange; }
+    100% { background: yellowgreen; }
+  }
+  #transform {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    transform-origin: left 2px;
+    transform: rotate(10deg);
+  }
+</style>
+<div id=tran></div>
+<div id=anmi></div>
+<div id=transform></div>

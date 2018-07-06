@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <style>
+    .inner {
+      display: inline-block
+    }
+
+    #wrapper {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    #flex {
+      display: flex
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="flex">
+    <div id="child">   <!-- 因为这个元素的存在, 里面 wrapper 的 width 也会被撑开 -->
+      <div id='wrapper'>
+      <div >
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+        <div class='inner'>aaa </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

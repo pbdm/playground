@@ -1,0 +1,14 @@
+<!-- <img src="../../img/touch-icon.png" /> -->
+<!-- https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLImageElement -->
+<script>
+  const src = "../../img/touch-icon.png";
+  function realImgDimension(src, callback) {
+    var i = new Image();
+    i.src = src;
+    i.addEventListener('load', function() {
+      console.log(this.naturalHeight)
+      console.log(this.naturalWidth)
+    })
+  }
+  realImgDimension(src)
+</script>

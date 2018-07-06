@@ -103,3 +103,19 @@ export const htmlDecode = function(str) {
   div.innerHTML = str;
   return div.innerHTML;
 }
+
+// learn from vue
+// https://github.com/vuejs/vue/blob/v2.5.0/src/shared/util.js#L175
+export const bind = function(fn, scope) {
+  function boundFn (a) {
+    var l = arguments.length;
+    return l
+      ? l > 1
+        ? fn.apply(scope, arguments)
+        : fn.call(scope, a)
+      : fn.call(scope)
+  }
+  // record original fn length
+  boundFn._length = fn.length;
+  return boundFn
+}
