@@ -1,3 +1,4 @@
+// https://javascript.ruanyifeng.com/nodejs/mongodb.html
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/test';
@@ -12,7 +13,7 @@ var insertDocument = function(db, callback) {
          "street" : "2 Avenue",
          "zipcode" : "10075",
          "building" : "1480",
-         "coord" : n -73.9557413, 40.7720266 ],
+         "coord" : [ n -73.9557413, 40.7720266 ]
       },
       "borough" : "Manhattan",
       "cuisine" : "Italian",
@@ -38,7 +39,7 @@ var insertDocument = function(db, callback) {
 }
 
 var findRestaurants = function(db, callback) {
-   var cursor =db.collection('restaurants').find( );
+   var cursor = db.collection('restaurants').find( );
    cursor.each(function(err, doc) {
       assert.equal(err, null);
       if (doc != null) {

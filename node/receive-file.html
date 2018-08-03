@@ -1,0 +1,48 @@
+<!-- 通过表单上传 -->
+<form action="http://localhost:5557" method=post enctype="multipart/form-data" accept-charset="utf-8">
+  <input type="file" name="data" />
+  <input type="submit" value="原生上传"/>
+</form>
+
+<form action="http://localhost:5558" method=post enctype="multipart/form-data" accept-charset="utf-8">
+  <input type="file" name="data" />
+  <input type="submit" value="formidable上传"/>
+</form>
+
+
+<!-- 通过异步请求上传 -->
+<input id="file" type="file">
+<button id="submitOri">原生提交</button>
+<button id="submit">formidable提交</button>
+
+<script>
+const fileDom = document.getElementById('file');
+const submitDom = document.getElementById('submit');
+const submitOriDom = document.getElementById('submitOri');
+const imgDom = document.getElementById('img');
+
+submitOriDom.addEventListener('click', () => {
+  upload('http://localhost:5557')
+})
+
+submitDom.addEventListener('click', () => {
+  upload('http://localhost:5558')
+})
+
+function upload(url) {
+  const file = fileDom.files[0];
+  var form = new FormData();
+  form.append("data", file);
+  fetch(url, {
+    method: 'POST',
+    body: form
+  }).then(res => {
+    return res.json();
+  }).then(res => {
+    console.log('res is',res);
+  })
+
+}
+
+
+</script>
