@@ -1,0 +1,23 @@
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image -->
+<!-- CORS enabled image -->
+<script>
+  var img = new Image,
+    canvas = document.createElement("canvas"),
+    ctx = canvas.getContext("2d"),
+    src = "http://pbdm.qiniudn.com/1852315.jpg"; // insert image url here
+
+  // 如果不加这行, 则会报 Uncaught DOMException: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.
+  img.crossOrigin = "Anonymous";
+
+  img.onload = function () {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    const imgDom = document.createElement('img');
+    imgDom.src = dataURL;
+    document.body.appendChild(imgDom)
+  }
+  img.src = src;
+ 
+</script>
