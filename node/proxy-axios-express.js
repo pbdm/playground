@@ -4,7 +4,8 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded());
+// app.use(express.urlencoded());
 
 app.all('/:url', function (req, res, next) {
   (async function() {
@@ -20,6 +21,7 @@ app.all('/:url', function (req, res, next) {
         params: req.query
       }
       if (contentType === 'application/x-www-form-urlencoded' || contentType === 'application/json') {
+        debugger
         const data = req.headers['content-type'] === 'application/x-www-form-urlencoded' ? querystring.stringify(req.body) : req.body;
         options.data = data;
         const result = await axios(options)
