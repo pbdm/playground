@@ -22,7 +22,7 @@ export const jsonp = (url, params) => {
     const data = Object.assign({}, params, {callback: `jsonP.${callbackName}`})
 
     const script = document.createElement('script');
-    script.type = 'text/javascript';
+    script.type = 'application/javascript';
     script.src = url + serialize(data);
     script.async = true;
 

@@ -51,7 +51,7 @@ function request(params, success) {
 }
 
 const script = document.createElement('script');
-script.type = 'text/javascript';
+script.type = 'application/javascript';
 script.src = 'http://res.wx.qq.com/open/js/jweixin-1.0.0.js';
 script.async = true;
 script.addEventListener('load', init, false);
