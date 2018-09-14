@@ -1,6 +1,9 @@
 require('http').createServer(function(req, res) {
-  console.log(req)
-  console.log(req.rawHeaders)
+  if (req.url.indexOf('favicon') === -1) {
+    console.log(req)
+    console.log('url', req.url)
+    // console.log(req.rawHeaders)
+  }
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   // res.setHeader('Access-Control-Allow-Credentials', true);
   // console.log(req.method);
@@ -24,10 +27,11 @@ require('http').createServer(function(req, res) {
         headers: req.headers,
         url: req.url
       }
-      console.log(params)
+      // console.log(params)
       res.end(
         JSON.stringify(params)
       );
     });
   }
-}).listen(5556);
+// }).listen(5556);
+}).listen(3001);

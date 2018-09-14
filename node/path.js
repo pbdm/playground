@@ -44,3 +44,8 @@ console.log(myURL.pathname); // /foo/
 // const myURL2 = new url.URL('/foo/');
 // console.log(myURL2);
 
+console.log(url.format({
+  protocol: 'http',
+  host: 'www.a.b',
+  pathname: '/a'
+}))
