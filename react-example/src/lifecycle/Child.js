@@ -75,7 +75,7 @@ class Child extends Component {
     return (
       <div>
         child
-        <img src="http://pbdm.qiniudn.com/20180508110912_xNMRvq_Screenshot.jpeg" style={{width: '100%'}} alt="lifecycle"/>
+        <img src="https://cdn.rawgit.com/pbdm/img/master/20180508110912_xNMRvq_Screenshot.jpeg" style={{width: '100%'}} alt="lifecycle"/>
       </div>
     );
   }
