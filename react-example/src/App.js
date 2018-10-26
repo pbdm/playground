@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import Parent from './lifecycle/Parent';
-// import Parent from './ErrorBoundary/Parent';
+// import Example from './examples/lifecycle/Parent';
+// import Example from './examples/ErrorBoundary/Parent';
+// import Example from './examples/react-beautiful-dnd';
+import Example from './examples/styled-components';
 
 class App extends Component {
   
   render() {
-    return (
-      <div>
-        <Parent />
-      </div>
-    );
+    return <Example />
   }
 }
 

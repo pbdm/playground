@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import initialData from './initial-data';
 import Column from './column';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = initialData;
 
   onDragEnd = result => {
@@ -66,5 +65,3 @@ class App extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
