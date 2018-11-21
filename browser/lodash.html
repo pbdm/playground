@@ -1,0 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+<script>
+  const obj = {
+    apple: {
+        type: 'fruit',
+        value: 0
+    },
+    banana: {
+        type: 'fruit',
+        value: 1
+    },
+    broccoli: {
+        type: 'vegetable',
+        value: 2
+    }
+  }
+  const transformed = _.transform(obj, function(result, item, name){  
+    // console.log(item)
+    // console.log(name)
+    result[item.type] = result[item.type] || {}; 
+    result[item.type][name] = item;
+  });
+  console.log(transformed)
+
+</script>

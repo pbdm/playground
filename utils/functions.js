@@ -105,6 +105,7 @@ export const htmlDecode = function(str) {
 }
 
 // learn from vue
+// 貌似现在原生 bind 已经没有性能问题了
 // https://github.com/vuejs/vue/blob/v2.5.0/src/shared/util.js#L175
 export const bind = function(fn, scope) {
   function boundFn (a) {
