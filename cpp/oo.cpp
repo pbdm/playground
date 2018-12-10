@@ -1,39 +1,40 @@
-
+// http://www.runoob.com/cplusplus/cpp-classes-objects.html
 #include <iostream>
 using namespace std;
 
 class Box
 {
-   double width;
-   public:
-      static int objectCount;
-      double length;   // Length of a box
-      double breadth;  // Breadth of a box
-      double height;   // Height of a box
-      // 构造函数
-      Box();
-      // 析构函数 在每次删除所创建的对象时执行
-      ~Box();
-      // TODO 拷贝构造函数
-      // Box( const Box &obj);      
+  double width;
+  public:
+    static int objectCount;
+    double length;   // Length of a box
+    double breadth;  // Breadth of a box
+    double height;   // Height of a box
+    void callMe(void);
+  // 构造函数
+  Box();
+  // 析构函数 在每次删除所创建的对象时执行
+  ~Box();
+  // TODO 拷贝构造函数
+  // Box( const Box &obj);      
 
-      // 友元函数 定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员
-      friend void printWidth( Box box );
-      // 重载 + 运算符
-      Box operator+(const Box& b)
-      {
-        Box box;
-        box.height = this->height+ b.height;
-        return box;
-      }
-      // 成员函数声明
-      double getWidth(void);
-      void setWidth(double wid);
-      // TODO 多态, 虚函数virtual(接口interface?)
-      //
-      double *pvs  = NULL; // 初始化为 null 的指针
-      // pv  = new double;   // 为变量请求内存
-      pvs = 29494.99;     // 在分配的地址存储值
+  // 友元函数 定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员
+  friend void printWidth( Box box );
+  // 重载 + 运算符
+  Box operator+(const Box& b)
+  {
+    Box box;
+    box.height = this->height+ b.height;
+    return box;
+  }
+  // 成员函数声明
+  double getWidth(void);
+  void setWidth(double wid);
+  // TODO 多态, 虚函数virtual(接口interface?)
+  //
+  // double *pvs = NULL; // 初始化为 null 的指针
+  // // pv  = new double;   // 为变量请求内存
+  // pvs = 29494.99;     // 在分配的地址存储值
 };
 // SmallBox 是派生类, 默认的继承方式为 private
 // class SmallBox: Box 
@@ -50,7 +51,12 @@ Box::~Box(void)
   cout << "Object is being deleted" << endl;
 }
 
+void Box::callMe(void) {
+  cout << "called me" << endl;
+}
+
 double Box::getWidth(void) {
+  // 和 js 不一样, this 为指针
   // return this->width;
   return width;
 }
@@ -91,6 +97,7 @@ int main() {
 
   Box Box3 = Box1 + Box2;
   cout << Box3.height << endl; // 10
+  Box1.callMe();
   return 0;
 }
 
