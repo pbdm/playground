@@ -1,17 +1,20 @@
 // const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-const shaderProgram = initShaderProgram(gl, vsSourceTexture, fsSourceTexture);
+// const shaderProgram = initShaderProgram(gl, vsSourceTexture, fsSourceTexture);
+const shaderProgram = initShaderProgram(gl, vsSourceNormal, fsSourceNormal);
 
 const programInfo = {
   program: shaderProgram,
   attribLocations: {
     vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
     vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
-    textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord')
+    textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
+    vertexNormal: gl.getAttribLocation(shaderProgram, 'aVertexNormal')
   },
   uniformLocations: {
     projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
     modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
-    uSampler: gl.getUniformLocation(shaderProgram, 'uSampler')
+    uSampler: gl.getUniformLocation(shaderProgram, 'uSampler'),
+    normalMatrix: gl.getUniformLocation(shaderProgram, 'uNormalMatrix')
   }
 };
 
@@ -25,6 +28,8 @@ buffers.color = initCubeColorBuffers(gl);
 buffers.indices = initCubeIndicesBuffers(gl);
 
 buffers.textureCoord = initCubeTextureCoordBuffers(gl);
+
+buffers.normal = initCubeNormalBuffers(gl);
 
 var then = 0;
 var rotation = 0.0;
@@ -63,6 +68,9 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
   mat4.rotate(modelViewMatrix, modelViewMatrix, rotation, [0, 0, 1]);
   mat4.rotate(modelViewMatrix, modelViewMatrix, rotation * .7, [0, 1, 0]);
+  const normalMatrix = mat4.create();
+  mat4.invert(normalMatrix, modelViewMatrix);
+  mat4.transpose(normalMatrix, normalMatrix);
 
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.
@@ -76,31 +84,18 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
     0   // how many bytes inside the buffer to start from(offset)
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-
   // color
   // gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);
-  // gl.vertexAttribPointer(
-  //   programInfo.attribLocations.vertexColor, 
-  //   4, 
-  //   gl.FLOAT, 
-  //   false, 
-  //   0, 
-  //   0
-  // );
+  // gl.vertexAttribPointer( programInfo.attribLocations.vertexColor, 4, gl.FLOAT, false, 0, 0);
   // gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
-
   // texture
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
-  gl.vertexAttribPointer(
-    programInfo.attribLocations.textureCoord, 
-    2, 
-    gl.FLOAT, 
-    false, 
-    0, 
-    0
-  );
+  gl.vertexAttribPointer( programInfo.attribLocations.textureCoord, 2, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
-
+  // normal 法线
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.normal);
+  gl.vertexAttribPointer( programInfo.attribLocations.vertexNormal, 3, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray( programInfo.attribLocations.vertexNormal);
   // TODO 这里为什么在渲染立方体的时候可有可无?! ELEMENT_ARRAY_BUFFER?!
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
 
@@ -108,7 +103,7 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.useProgram(programInfo.program);
   gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
   gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
-
+  gl.uniformMatrix4fv( programInfo.uniformLocations.normalMatrix, false, normalMatrix);
   // Tell WebGL we want to affect texture unit 0
   gl.activeTexture(gl.TEXTURE0);
   // Bind the texture to texture unit 0
