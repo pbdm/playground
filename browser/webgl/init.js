@@ -81,4 +81,25 @@ function loadTexture(gl, url) {
 }
 
 
+// for 文字
+function initText(gl, text, width, height) {
+  var textCtx = document.createElement("canvas").getContext("2d");
+  textCtx.canvas.width  = width;
+  textCtx.canvas.height = height;
+  textCtx.font = "20px monospace";
+  textCtx.textAlign = "center";
+  textCtx.textBaseline = "middle";
+  textCtx.fillStyle = "green";
+  textCtx.clearRect(0, 0, textCtx.canvas.width, textCtx.canvas.height);
+  textCtx.fillText(text, width / 2, height / 2);
+  const textCanvas = textCtx.canvas;
+  const texture = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textCanvas);
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+}
+
 

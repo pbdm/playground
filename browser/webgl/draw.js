@@ -4,6 +4,7 @@ const shaderProgram = initShaderProgram(gl, vsSourceNormal, fsSourceNormal);
 
 const programInfo = {
   program: shaderProgram,
+  // 寻找顶点着色器中需要的数据
   attribLocations: {
     vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
     vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
@@ -33,7 +34,9 @@ buffers.normal = initCubeNormalBuffers(gl);
 
 var then = 0;
 var rotation = 0.0;
-const texture = loadTexture(gl, 'cubetexture.png');
+// const texture = loadTexture(gl, 'cubetexture.png');
+const texture = initText(gl, 'hello', 100, 100)
+
 // Draw the scene repeatedly
 function render(now) {
   now *= 0.001;  // convert to seconds
@@ -49,12 +52,14 @@ requestAnimationFrame(render);
 
 
 function drawScene(gl, programInfo, buffers, texture, deltaTime) {
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
+  gl.clearColor(0.0, 0.5, 0.0, 1.0);  // Clear to black, fully opaque
   gl.clearDepth(1.0);                 // Clear everything
   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
   gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
   // Clear the canvas before we start drawing on it.
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  
+  gl.useProgram(programInfo.program);
 
   // 设置45度的视图角度，并且宽高比设为 640/480（画布尺寸）。 指定在摄像机距离0.1到100单位长度的范围内，物体可见
   const fieldOfView =45 * Math.PI / 180;   // in radians
@@ -77,11 +82,11 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
   gl.vertexAttribPointer(
     programInfo.attribLocations.vertexPosition,
-    3, // pull out 2 values per iteration(numComponents)
-    gl.FLOAT, // the data in the buffer is 32bit floats(type)
+    3, //  每次迭代使用3个单位的数据
+    gl.FLOAT, // 单位数据类型是32位的浮点型
     false, // don't normalize
-    0, // how many bytes to get from one set of values to the next(stride)
-    0   // how many bytes inside the buffer to start from(offset)
+    0, // stride, 移动距离 * 单位距离长度sizeof(type)(一个数据到下一个数据要跳过多少位), 一般是0
+    0   // offset, how many bytes inside the buffer to start from
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
   // color
@@ -96,20 +101,18 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.normal);
   gl.vertexAttribPointer( programInfo.attribLocations.vertexNormal, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray( programInfo.attribLocations.vertexNormal);
-  // TODO 这里为什么在渲染立方体的时候可有可无?! ELEMENT_ARRAY_BUFFER?!
+  // TODO 这里为什么在渲染立方体的时候可有可无?! ELEMENT_ARRAY_BUFFER?! 因为 ELEMENT_ARRAY_BUFFER 只用了一次, 不需要再绑定了吧?! 
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
 
-  // Tell WebGL to use our program when drawing
-  gl.useProgram(programInfo.program);
   gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
   gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
   gl.uniformMatrix4fv( programInfo.uniformLocations.normalMatrix, false, normalMatrix);
   // Tell WebGL we want to affect texture unit 0
-  gl.activeTexture(gl.TEXTURE0);
+  // gl.activeTexture(gl.TEXTURE0);
   // Bind the texture to texture unit 0
-  gl.bindTexture(gl.TEXTURE_2D, texture);
+  // gl.bindTexture(gl.TEXTURE_2D, texture);
   // Tell the shader we bound the texture to texture unit 0
-  gl.uniform1i(programInfo.uniformLocations.uSampler, 0);
+  // gl.uniform1i(programInfo.uniformLocations.uSampler, 0);
   
   // gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
