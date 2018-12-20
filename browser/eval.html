@@ -1,0 +1,11 @@
+<script>
+  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval
+  function a() {
+    "use strict";
+    var cc = 'b'
+    eval("console.log(this)") // undefined
+    var geval = eval;
+    geval("console.log(this)") // window
+  }
+  a();
+</script>
