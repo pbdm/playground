@@ -38,7 +38,7 @@ http.createServer(function(req, res) {
       var p = picmsg.match(/filename=".*"/g)[0].split('"')[1];
       //图片数据
       var nbuf = buffer.slice(rems[3] + 2, rems[rems.length - 2]);
-      fs.writeFileSync(path.join('..', 'temp', p), nbuf);
+      fs.writeFileSync(path.join(__dirname, 'temp', p), nbuf);
       res.end('{"errMsg":"ok"}');
     });
   }
@@ -54,8 +54,10 @@ http.createServer(function(req, res) {
       console.log("parsing done");
       const filePath = files.data.path;
       const fileName = files.data.name;
-      fs.writeFileSync(path.join('..', 'temp', fileName), fs.readFileSync(filePath));
+      fs.writeFileSync(path.join(__dirname, 'temp', fileName), fs.readFileSync(filePath));
       res.end('{"errMsg":"ok"}');
     });
+  } else {
+      res.end('{"errMsg":"error"}');
   }
 }).listen(5558);
