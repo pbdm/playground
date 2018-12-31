@@ -5,6 +5,7 @@ const FormData = require('form-data');
 // const querystring = require('querystring');
 
 const file = fs.createReadStream(path.resolve(__dirname, 'upload-file.html'));
+// const file = fs.readFileSync(path.resolve(__dirname, 'upload-file.html'));
 console.log('here');
 var form = new FormData();
 form.append('data', file);
