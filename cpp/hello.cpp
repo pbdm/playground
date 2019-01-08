@@ -1,5 +1,5 @@
 // http://www.runoob.com/cplusplus/cpp-tutorial.html
-// 编译方法: g++ hello.cpp 
+// 编译方法: g++ hello.cpp 或 clang++ hello.cpp
 // 引用头文件
 #include <iostream>
 // 使用 std 命名空间
