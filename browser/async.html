@@ -1,0 +1,34 @@
+<script>
+  // 实现异步队列按顺序执行
+  // 这里最后应该会按顺序打出 2000, 500, 1000, 3000, 1500, 0, 200
+  const source = [2000, 500, 1000, 3000, 1500, 0, 200]
+  const queue = [];
+  function code(i) {
+    queue.push({
+      key: i
+    });
+    setTimeout(() => {
+      run(i);
+    }, source[i])
+  }
+  function run(i) {
+    console.log('run ' + i)
+    queue.find(q => q.key === i).ready = true;
+    console.log(JSON.stringify(queue))
+    for (let i = 0; i < queue.length; i++) {
+      const obj = queue[i];
+      if (obj.ready) {
+        console.log(source[obj.key])
+        queue.shift();
+        i--;
+        console.log('after shift')
+        console.log(JSON.stringify(queue))
+      } else {
+        break;
+      }
+    }
+  }
+  for (let index = 0; index < source.length; index++) {
+    code(index)
+  }
+</script>

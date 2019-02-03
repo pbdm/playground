@@ -1,0 +1,21 @@
+<script src="https://johnresig.com/files/htmlparser.js"></script>
+<script>
+  var html= `<ul class="ul">ttt<li><span>文本</span></li></ul>`
+  console.log(html)
+  HTMLParser(html, {
+    start: function(tagName, attrs, unary) {
+      console.log('start tagName: ' + tagName)
+      console.log('start attrs: ' + JSON.stringify(attrs))
+      console.log('start unary: ' + unary)
+    },
+    end: function(tag) {
+      console.log('end: '+ tag)
+	  },
+    chars: function(text) {
+      console.log('chars: '+ text)
+    },
+    comment: function(text) {
+      console.log('comment: '+ text)
+    }
+  })
+</script>
