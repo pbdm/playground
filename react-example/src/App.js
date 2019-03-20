@@ -1,14 +1,5 @@
-import React, { Component } from 'react';
-// import Example from './examples/lifecycle/Parent';
-// import Example from './examples/ErrorBoundary/Parent';
-// import Example from './examples/react-beautiful-dnd';
-import Example from './examples/styled-components';
-
-class App extends Component {
-  
-  render() {
-    return <Example />
-  }
-}
-
-export default App;
+// export { default } from './examples/lifecycle/Parent';
+// export { default } from './examples/ErrorBoundary/Parent';
+// export { default } from './examples/react-beautiful-dnd';
+// export { default } from './examples/styled-components';
+export { default } from './examples/hooks';
