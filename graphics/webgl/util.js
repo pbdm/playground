@@ -1,21 +1,5 @@
-const canvas = document.querySelector('#glcanvas');
-// Initialize the GL context
-// const gl = canvas.getContext("2d");
-const gl = canvas.getContext('webgl');
-// Only continue if WebGL is available and working
-if (!gl) {
-  alert(
-    'Unable to initialize WebGL. Your browser or machine may not support it.'
-  );
-}
-// Set clear color to black, fully opaque
-// gl.clearColor(0.0, 0.0, 0.0, 1.0);
-// Clear the color buffer with specified clear color
-// gl.clear(gl.COLOR_BUFFER_BIT);
-
-
-//  初始化着色器程序，让WebGL知道如何绘制我们的数据
-function initShaderProgram(gl, vsSource, fsSource) {
+// 初始化着色器程序，让WebGL知道如何绘制我们的数据
+export function initShaderProgram(gl, vsSource, fsSource) {
   const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
   const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
   // 创建着色器程序
@@ -31,10 +15,8 @@ function initShaderProgram(gl, vsSource, fsSource) {
   return shaderProgram;
 }
 
-//
 // 创建指定类型的着色器，上传source源码并编译
-//
-function loadShader(gl, type, source) {
+export function loadShader(gl, type, source) {
   const shader = gl.createShader(type);
   // Send the source to the shader object
   gl.shaderSource(shader, source);
@@ -49,7 +31,8 @@ function loadShader(gl, type, source) {
   return shader;
 }
 
-function loadTexture(gl, url) {
+// 载入纹理
+export function loadTexture(gl, url) {
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
   const level = 0;
@@ -80,9 +63,8 @@ function loadTexture(gl, url) {
   }
 }
 
-
-// for 文字
-function initText(gl, text, width, height) {
+// 载入文字
+export function initText(gl, text, width, height) {
   var textCtx = document.createElement("canvas").getContext("2d");
   textCtx.canvas.width  = width;
   textCtx.canvas.height = height;

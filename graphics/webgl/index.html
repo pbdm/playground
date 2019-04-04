@@ -1,7 +1,13 @@
 <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL -->
 <canvas id="glcanvas" width="600" height="600"></canvas>
-<script src="//cdn.jsdelivr.net/gh/toji/gl-matrix/dist/gl-matrix-min.js"></script>
-<script src="./init.js"></script>
-<script src="./shader.js"></script>
-<script src="./buffers.js"></script>
-<script src="./draw.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/toji/gl-matrix/dist/gl-matrix.js"></script>
+<script>
+  const mat4 = glMatrix.mat4
+  const canvas = document.querySelector('#glcanvas');
+  const gl = canvas.getContext('webgl');
+  // Set clear color to black, fully opaque
+  // gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  // Clear the color buffer with specified clear color
+  // gl.clear(gl.COLOR_BUFFER_BIT);
+</script>
+<script type="module" src="./basic/index.js"></script>
