@@ -1,0 +1,38 @@
+<!-- https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Memory</title>
+</head>
+
+<body>
+  <button id="init">init</button>
+  <div id="iframe-host"></div>
+  <script>
+    function createClosure(a, b, c)
+    {
+      var d = a + b;
+      return function() { return c + d; };
+    }
+
+    var closure = createClosure("a", "b", "c");
+    closure.a = "property a";
+    closure.d = "property d";
+
+    var consString = "aaa / " + document.URL + document.inputEncoding;
+
+    var top_in_page = "inside page";
+
+    function init()
+    {
+      var iframe = document.createElement("iframe");
+      iframe.setAttribute("src", "/");
+      document.getElementById("iframe-host").appendChild(iframe);
+    }
+    document.getElementById('init').addEventListener('click', init);
+  </script>
+</body>
+
+</html>

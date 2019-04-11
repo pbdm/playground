@@ -1,0 +1,19 @@
+<button id="create">create</button>
+<button id="clear">clear</button>
+<script>
+  var detachedNodes;
+  function create() {
+    var ul = document.createElement('ul');
+    for (var i = 0; i < 10; i++) {
+      var li = document.createElement('li');
+      ul.appendChild(li);
+    }
+    detachedNodes = ul;
+  }
+  // 需要 clear 才能回收
+  function clear() {
+    detachedNodes = null
+  }
+  document.getElementById('create').addEventListener('click', create);
+  document.getElementById('clear').addEventListener('click', clear);
+</script>

@@ -1,0 +1,38 @@
+<!-- https://developers.google.com/web/tools/chrome-devtools/memory-problems/heap-snapshots -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Memory</title>
+</head>
+
+<body>
+  <button id="init">Create scattered objects</button>
+  <script>
+  function Item(x) {
+  this.x = x;
+}
+function numbers() {
+  var result = new Array(10000);
+  for (var i = 0, l = result.length; i < l; ++i)
+    result[i] = new Item(i);
+  return new Item(result);
+}
+function strings() {
+  var result = new Array(10000);
+  for (var i = 0, l = result.length; i < l; ++i)
+    result[i] = new Item(i.toString());
+  return new Item(result);
+}
+function init() {
+  numberCache = numbers();
+  stringCache = strings();
+  documentCache = new Item(document.body.textContent.toLowerCase());
+}
+
+    document.getElementById('init').addEventListener('click', init);
+  </script>
+</body>
+
+</html>
