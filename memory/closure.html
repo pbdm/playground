@@ -1,0 +1,19 @@
+<script>
+  (function(){
+    var theThing = null
+    var replaceThing = function () {
+        var originalThing = theThing
+        var unused = function () {
+            if (originalThing)
+                console.log("hi")
+        }
+        theThing = {
+            longStr: new Array(1000000).join('*'),
+            someMethod: function someMethod() {
+                console.log('someMessage')
+            }
+        };
+    };
+    setInterval(replaceThing,100)
+})()
+</script>
