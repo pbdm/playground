@@ -1,3 +1,3 @@
-export { default } from './hooks'
-// export { default } from './class'
+// export { default } from './vs-class';
+export { default } from './reducer/parent'
 
