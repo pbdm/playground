@@ -1,0 +1,34 @@
+<!-- canvas blur -->
+<html>
+  <body>
+    <canvas id="app"></canvas>
+  </body>
+  <script>
+    function avoidBlur(canvas, context, window) {
+      // 屏幕的设备像素比
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      // 浏览器在渲染canvas之前存储画布信息的像素比
+      const backingStoreRatio =
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio ||
+        1;
+      // canvas的实际渲染倍率
+      const ratio = devicePixelRatio / backingStoreRatio;
+      canvas.style.width = canvas.width;
+      canvas.style.height = canvas.height;
+      canvas.width = canvas.width * ratio;
+      canvas.height = canvas.height * ratio;
+      context.scale(ratio, ratio);
+    }
+    
+    const canvas = document.getElementById('app');
+    const context = canvas.getContext('2d');
+    avoidBlur(canvas, context, window)
+    // 测试
+    context.font = "36px Georgia";
+    context.fillText("i'm a word", 50, 50);
+  </script>
+</html>

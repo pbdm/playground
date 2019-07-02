@@ -1,0 +1,36 @@
+<!-- canvas 事件 -->
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="app"></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById('app');
+    canvas.width = window.innerWidth;
+    canvas.height= window.innerHeight;
+    var ctx = canvas.getContext('2d');
+    var r = canvas.width / 2;
+    const blue = new Path2D();
+    const red = new Path2D();
+    blue.arc(r, r, r, 0, Math.PI * 1);
+    red.arc(r, r, r, Math.PI * 1, Math.PI * 2);
+    ctx.fillStyle = '#2196f3'; //蓝色
+    ctx.fill(blue);
+    ctx.fillStyle = '#f44336'; //红色
+    ctx.fill(red)
+    function isInPath(path, x, y) {
+      return ctx.isPointInPath(path, x, y)
+    }
+    canvas.addEventListener('click', function(e) {
+      if (isInPath(red, e.clientX, e.clientY)) {
+        console.log('hello');
+      }
+    });
+  </script>
+</html>
