@@ -1,0 +1,128 @@
+<!-- canvas blur -->
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="app"></canvas>
+  </body>
+  <script>
+    var canvas = document.getElementById('app');
+    var datas = [];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext('2d');
+    avoidBlur(canvas, ctx, window);
+    canvas.addEventListener('click', function(e) {
+      datas.forEach(function(rect) {
+        if (rect.isPointInPath(e.clientX, e.clientY)) {
+          rect.fn();
+        }
+      })
+    });
+    
+    function avoidBlur(canvas, context, window) {
+      const ratio = window.devicePixelRatio || 1
+      canvas.style.width = canvas.width;
+      canvas.style.height = canvas.height;
+      canvas.width = canvas.width * ratio;
+      canvas.height = canvas.height * ratio;
+      context.scale(ratio, ratio);
+    }
+
+    var Rect = function(opt) {
+      Object.keys(opt).forEach(key => {
+        this[key] = opt[key]
+      })
+    };
+
+    Rect.prototype = {
+      constructor: Rect,
+
+      createPath: function() {
+        // console.log(this)
+        ctx.rect(this.x, this.y, this.width, this.height);
+      },
+
+      updateStyle: function(fillStyle) {
+        this.fillStyle = fillStyle;
+        return this;
+      },
+
+      draw: function() {
+        ctx.save();
+        ctx.fillStyle = this.background;
+        ctx.beginPath();
+        this.createPath();
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+        ctx.font = "32px serif";
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
+        ctx.restore();
+      },
+
+      // 判断点是否在这个路径上, 构造路径利用 isPointInPath 判断点是否在此路径上不用绘制到canvas上
+      isPointInPath: function(x, y) {
+        var isIn = false;
+        ctx.save();
+        ctx.beginPath();
+        this.createPath();
+        // console.log('point:',x, y)
+        const ratio = window.devicePixelRatio || 1
+        if (ctx.isPointInPath(x * ratio, y * ratio)) {
+          isIn = true;
+        }
+        ctx.closePath();
+        ctx.restore();
+        return isIn;
+      }
+    };
+
+    function draw(items) {
+      const height = 80;
+      const width = window.innerWidth / 2;
+      const space = 20;
+
+      items.forEach((item, index) => {
+        const rect = new Rect({
+          x: (window.innerWidth - width) / 2,
+          y: index * height + 50 + index * space,
+          width: width,
+          height: height,
+          ...item
+        });
+        rect.draw();
+        datas.push(rect);
+      });
+    }
+  </script>
+  <script>
+    const btns = [
+      {
+        background: '#05EFFF',
+        color: '#000',
+        text: '测试1',
+        fn: () => {
+          console.log('fn1')
+        }
+      },
+      {
+        background: 'blue',
+        color: '#000',
+        text: '测试2',
+        fn: () => {
+          console.log('fn2')
+        }
+      }
+    ];
+    draw(btns);
+  </script>
+</html>

@@ -6,17 +6,7 @@
   <script>
     function avoidBlur(canvas, context, window) {
       // 屏幕的设备像素比
-      const devicePixelRatio = window.devicePixelRatio || 1;
-      // 浏览器在渲染canvas之前存储画布信息的像素比
-      const backingStoreRatio =
-        context.webkitBackingStorePixelRatio ||
-        context.mozBackingStorePixelRatio ||
-        context.msBackingStorePixelRatio ||
-        context.oBackingStorePixelRatio ||
-        context.backingStorePixelRatio ||
-        1;
-      // canvas的实际渲染倍率
-      const ratio = devicePixelRatio / backingStoreRatio;
+      const ratio = window.devicePixelRatio || 1;
       canvas.style.width = canvas.width;
       canvas.style.height = canvas.height;
       canvas.width = canvas.width * ratio;
