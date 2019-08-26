@@ -21,6 +21,7 @@
       datas.forEach(function(rect) {
         if (rect.isPointInPath(e.clientX, e.clientY)) {
           rect.fn();
+          // rect.setShadow();
         }
       })
     });
@@ -68,6 +69,15 @@
         ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
         ctx.restore();
       },
+      
+      // setShadow: function (xoffset, yoffset) {
+      //   var style = this.style;
+      //   ctx.shadowOffsetX = xoffset || 0;
+      //   ctx.shadowOffsetY = yoffset || 5;
+      //   ctx.shadowBlur = 10;
+      //   ctx.shadowColor = 'green';
+      //   this.draw();
+      // },
 
       // 判断点是否在这个路径上, 构造路径利用 isPointInPath 判断点是否在此路径上不用绘制到canvas上
       isPointInPath: function(x, y) {

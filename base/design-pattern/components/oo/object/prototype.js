@@ -30,7 +30,7 @@ console.log('name' in person2); //true
 function Personb() {
 }
 var friend = new Personb();
-// 这种形式下constructor属性不在指向Personb, 而是 Object
+// 这种形式下constructor属性不再指向Personb, 而是 Object
 Personb.prototype = {
   name: 'Other',
   sayName: function() {
