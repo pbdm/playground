@@ -1,0 +1,49 @@
+<script>
+
+
+function Promise(fn) {
+  // pending fulfilled reject
+  // 0 ,1, 2
+  this._state = 0
+  const resolve = (opt) => {
+    this._then(opt)
+  }
+  const reject = (opt) => {
+    this._catch(opt)    
+  }
+  fn(resolve, reject)
+}
+
+Promise.prototype.then = function(fn) {
+  this._then = fn;
+  return this;
+}
+
+Promise.prototype.catch = function(fn) {
+  this._catch = fn;
+  return this;
+}
+
+Promise.prototype.all = function(fns) {
+  this._all = fns; 
+}
+
+
+</script>
+<script>
+
+const promise1 = new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    // resolve('foo');
+    reject('reject');
+  }, 300);
+});
+
+promise1.then(function(value) {
+  console.log(value);
+  // expected output: "foo"
+}).catch((e) => {
+  console.log(e) 
+});
+
+</script>

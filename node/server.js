@@ -1,7 +1,7 @@
 require('http').createServer(function(req, res) {
   if (req.url.indexOf('favicon') === -1) {
-    console.log(req)
-    console.log('url', req.url)
+    // console.log(req)
+    // console.log('url', req.url)
     // console.log(req.rawHeaders)
   }
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -17,10 +17,12 @@ require('http').createServer(function(req, res) {
   } else {
     let body = '';
     req.on('data', chunk => {
+      console.log('ondata')
+      console.log(chunk);
       body += chunk.toString();
     });
     req.on('end', () => {
-      // console.log('headers', req.headers)
+      console.log('headers', req.headers)
       const params = {
         body: body,
         method: req.method,

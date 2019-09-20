@@ -8,6 +8,7 @@
     "formidable": "^1.2.1",
     "http-proxy-middleware": "^0.19.1",
     "puppeteer": "^1.11.0",
-    "puppeteer-to-istanbul": "^1.2.2"
+    "puppeteer-to-istanbul": "^1.2.2",
+    "ws": "^7.1.2"
   }
 }
