@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+      .content {
+        flex-direction: row;
+        display: flex;
+      }
+      .left {
+        width: 80px;
+        min-width: 80px;
+        color: red;
+        text-align: center;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        /* 这个保证 nowrap 情况下不撑开 */
+        min-width: 0px;
+      }
+      .title {
+        color: green;
+      }
+      .desc {
+        color: blue;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="left">我是图片</div>
+      <div class="right">
+        <div class="title">我是标题</div>
+        <div class="desc">
+          女女人天生爱美啊女人天生爱美啊女人天生爱美啊女人天生爱美啊女人天生爱美啊女人天生爱美啊人天生爱美啊
+        </div>
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

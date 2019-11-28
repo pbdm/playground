@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>引导页面遮罩</title>
+    <style>
+      #content {
+        background: red;
+        font-size: 30px;
+        position: relative;
+        margin: 20px;
+        border-radius: 5px;
+      }
+      .other {
+        padding-top: 100px;
+        text-align: center;
+      }
+      #mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: white;
+        font-size: 50px;
+      }
+      #mask-content {
+        position: relative;
+        text-align: center;
+      }
+      #mask-cutout {
+        box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+        /* border: 2px solid yellow; */
+        border-radius: 5px;
+        position: relative;
+        background-image: url('./border.png');
+        background-size: 100% 105%;
+      }
+      #mask-cutout:after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border: 1px solid transparent;
+        background: red;
+        border-left-color: #16E09D;
+        transform: rotate(-45deg);
+        left: 50%;
+        margin-left: -7px;
+        border-bottom-color: #16E09D;
+        bottom: -5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="other">
+      我是其他的东西 我是另外的东西
+    </div>
+    <div id="content">
+      我是内容, 我不想被覆盖,啊啊啊啊啊
+    </div>
+    <div class="other">
+      我是其他的东西 我是另外的东西
+    </div>
+    <div id="mask">
+      <div id="mask-cutout"></div>
+      <div id="mask-content">
+        我是 mask 里其他的内容
+      </div>
+    </div>
+    <script>
+      const borderWidth = 0;
+      const content = document.getElementById('content');
+      const mask = document.getElementById('mask-cutout');
+      mask.style.marginTop = content.offsetTop - borderWidth + 'px';
+      mask.style.marginLeft = content.offsetLeft - borderWidth + 'px';
+      mask.style.width = content.offsetWidth + 'px';
+      mask.style.height = content.offsetHeight + 'px';
+      // mask.style.borderRadius = window.getComputedStyle(content).borderRadius
+      // mask.style.top = content.offsetTop + 'px';
+    </script>
+  </body>
+</html>

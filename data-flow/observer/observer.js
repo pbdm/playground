@@ -1,19 +1,18 @@
 // 简单的观察者模式示例
 
 class Pubsub {
-
   constructor() {
     this.handles = {};
   }
 
-  on (key, fn) {
+  on(key, fn) {
     if (!this.handles[key]) {
       this.handles[key] = [];
     }
     this.handles[key].push(fn);
   }
-  
-  emit () {
+
+  emit() {
     // 取出第一个参数(type 类型)
     const key = Array.prototype.shift.call(arguments);
     const fns = this.handles[key];
@@ -29,12 +28,11 @@ class Pubsub {
 const p = new Pubsub();
 
 p.on('a', () => {
-  console.log('here')
-})
+  console.log('here');
+});
 
 p.on('a', () => {
-  console.log('there')
-})
+  console.log('there');
+});
 
-p.emit('a')
-
+p.emit('a');

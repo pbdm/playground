@@ -1,6 +1,3 @@
-//var scrollEventType;
-//(PBDm.whichBrowser().firefox) ? scrollEventType = "DOMMouseScroll": scrollEventType = "mousewheel";
-
 // require serialize
 export const jsonp = (url, params) => {
 

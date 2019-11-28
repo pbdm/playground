@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>引导页面遮罩</title>
+  <style>
+    #mask-cutout{
+      position: relative;
+      z-index: 2;
+      font-size: 50px;
+      box-shadow:  0 -100px 0 100px rgba(0, 0 ,0 ,0.5);
+      background: rgba(0, 0 ,0 ,0.5)
+    }
+    #content {
+      background: red;
+      border: 5px solid yellow;
+      border-radius: 10px;
+    }
+    #content:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      left: 50%;
+      margin-left: -5px;
+      border-top-color: yellow;
+      bottom: -20px;
+    }
+    #mask {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0, 0, 0.5);
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="mask-cutout">
+    <div id="content">
+      我是内容, 我不想被覆盖,啊啊啊啊啊
+    </div>
+  </div>
+    我是其他的东西
+    我是另外的东西
+  <div id="mask">
+    <div>
+      我是 mask 里其他的内容
+    </div>
+  </div>
+  <script>
+    const mask = document.getElementById('mask');
+    const content = document.getElementById('mask-cutout');
+    mask.style.top = content.offsetHeight + content.offsetTop + 'px';
+  </script>
+</body>
+</html>
