@@ -1,0 +1,14 @@
+<view class="drag">
+  <view 
+    s-for="list"
+    bindlongpress="handlePress"
+    bindtouchmove="handleTouchMove"
+    bindtouchend="handleTouchEnd"
+    data-index="{{index}}"
+    style="transform: translateY({{index === dragIndex ? transY + 'px' : 0}}); z-index: {{index === dragIndex ? 2: 1}}; position: relative;"
+  >
+    <view class="item" style='background: {{item.color}}'>
+      {{item.name}}
+    </view>
+  </view>
+</view>
