@@ -36,7 +36,7 @@ console.log(person4.sayName === person5.sayName); // true
  */
 
 // 防止忘记用new 关键字实例化
-function Person(name, age, job) {
+function Person2(name, age, job) {
   if (this instanceof Person) {
     this.name = name;
     this.age = age;

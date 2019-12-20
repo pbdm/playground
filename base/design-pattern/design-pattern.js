@@ -11,21 +11,24 @@ var getSingle = function(fn) {
 
 // 策略模式:  将方法写到配置项中...
 
-
 // 创建缓存代理工厂
-var createProxyFactory = function(fn){
+var createProxyFactory = function(fn) {
   var cache = {};
   return function() {
     var args = Array.prototype.join.call(arguments, ',' );
     if (args in cache) {
-      return cache[ args ]; 
+      return cache[args]; 
     }
-    return cache[ args ] = fn.apply(this, arguments); 
+    return cache[args] = fn.apply(this, arguments); 
   }
 };
 // example
+function mult(a, b) {
+  return a * b
+}
 var proxyMult = createProxyFactory(mult);
-alert(proxyMult( 1, 2, 3, 4 ));
+console.log(proxyMult(1, 2));
+console.log(proxyMult(1, 2));
 
 // 发布订阅模式
 var event = {
@@ -64,12 +67,6 @@ var event = {
   }
 };
 
-var installEvent = function(obj) {
-  for (var i in event) {
-    obj[i] = event[i];
-  }
-};
-
 
 /**
  * 用AOP装饰函数
@@ -92,14 +89,12 @@ Function.prototype.after = function(afterfn) {
     return ret;
   }
 };
-
 //example 
 document.getElementById = document.getElementById.before(function() {
   alert(1);
 });
 
 // 感悟: 使用设计模式就是少用if else 嵌套......
-
 
 // 单一职责(别干太多)
 // 最小知识(别知道太多)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>for, for in, for of</title>
+</head>
+<body>
+  <script>
+    console.log('---for in ---')
+      // for in 不建议使用在数组上
+      // var a = [1,2,3,4,5]
+      var triangle = {a: 1, b: 2, c: 3};
+    
+      function ColoredTriangle() {
+        this.color = 'red';
+      }
+    
+      ColoredTriangle.prototype = triangle;
+    
+      var obj = new ColoredTriangle();
+    
+      for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+          console.log(`obj.${prop} = ${obj[prop]}`);
+        } 
+      }
+    </script>
+</body>
+</html>

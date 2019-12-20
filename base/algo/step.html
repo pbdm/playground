@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>台阶问题</title>
+    上台阶 每次可以上一步或者两步, 一个20层台阶一共有多少种上法
+  </head>
+  <!-- https://segmentfault.com/a/1190000007115162 -->
+  <body>
+    <script>
+      // 穷举法
+      function getCount(i, j) {
+        let max = i >= j ? i : j;
+        let min = i < j ? i : j;
+        let total = max + min;
+        let count = 1;
+        // 排列组合
+        for (let i = 1; i <= min; i++) {
+          count *= total;
+          count /= i;
+          total--;
+        }
+        console.log(count);
+        return count;
+      }
+      function getStep(n) {
+        let count = 0;
+        for (let two = 0; two <= n / 2; two++) {
+          for (let one = 0; one <= n; one++) {
+            if (2 * two + one === n) {
+              console.log('two', two, 'one', one);
+              count += getCount(two, one);
+            }
+          }
+        }
+        console.log('total', count);
+      }
+      getStep(20);
+    </script>
+    <script>
+      // 递归斐波拉契
+      // 记住避免重复计算
+      let memory = [];
+      function getStepFibRec(count) {
+        if (count === 1 || count === 2) {
+          return count;
+        } else {
+          let n1 = memory[count - 1] || getStepFibRec(count - 1); 
+          memory[count - 1] = n1;
+          let n2 = memory[count - 2] || getStepFibRec(count - 2); 
+          memory[count - 2] = n2;
+          return n1 + n2 
+        }
+      }
+      const count = getStepFibRec(20);
+      console.log('fibcountrec', count);
+    </script>
+      // 递归斐波拉契
+    <script>
+      // 动态规划
+      function getStepFibFor(n) {
+        let begin = 1;
+        let last = 2;
+        let sum = 0;
+        for (let i = 3; i <= n; i++) {
+          sum = begin + last;
+          begin = last;
+          last = sum;
+        }
+        return sum;
+      }
+      console.log('fibcountfor', getStepFibFor(20));
+    </script>
+  </body>
+</html>

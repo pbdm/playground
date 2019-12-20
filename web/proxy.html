@@ -9,10 +9,12 @@
       var obj = new Proxy(
         {},
         {
+          // receiver 一般用的不多
           get: function(target, key, receiver) {
             console.log(`getting ${key}!`);
             return Reflect.get(target, key, receiver);
           },
+          // receiver 一般用的不多
           set: function(target, key, value, receiver) {
             console.log(`setting ${key}!`);
             target[key] = value;
