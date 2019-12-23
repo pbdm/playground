@@ -30,6 +30,7 @@ var proxyMult = createProxyFactory(mult);
 console.log(proxyMult(1, 2));
 console.log(proxyMult(1, 2));
 
+// 于发布订阅模式相比, 观察者模式没有中介
 // 发布订阅模式
 var event = {
   clientList: [],
@@ -37,7 +38,7 @@ var event = {
     if (!this.clientList[key]) {
       this.clientList[key] = [];
     }
-    this.clientList[key].push[fn]; // 订阅的消息添加进缓存列表 
+    this.clientList[key].push(fn); // 订阅的消息添加进缓存列表 
   },
   trigger: function() {
     var key = Array.prototype.shift.call(arguments), // (1);
@@ -66,6 +67,13 @@ var event = {
     return true;
   }
 };
+// example
+// 订阅
+event.listen('a', function() {
+  console.log('run', arguments)
+})
+// 发布
+event.trigger('a', 'bb')
 
 
 /**
