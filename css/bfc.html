@@ -1,74 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset=utf-8 />
-  <title>BFC</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>BFC</title>
+  </head>
+
   <body>
+    <div>避免外边距的重叠</div>
     <style>
       .bfc {
-        float: left;
-        height: 100px;
-        background: red;
-        width: 100px;
-      }
-
-      .n {
-        height: 200px;
-        background: green;
-      }
-    </style>
-    <div class='bfc'></div>
-    <div class='n'></div>
-    <hr />
-    <style>
-      .bfc2 {
-        float: left;
-        height: 100px;
-        background: red;
-        width: 100px;
-      }
-      .n2 {
-        height: 200px;
-        background: green;
         overflow: hidden;
       }
-    </style>
-    <div class='bfc2'></div>
-    <div class='n2'></div>
-    <hr />
-    <style>
-      .bfc3 {
-        overflow: hidden;
-      }
-      .n3 {
+      .green {
         height: 200px;
         width: 100px;
         background: green;
         margin: 10px;
       }
     </style>
-    <div class='bfc3'>
-      <div class='n3'></div>
+    <div class="bfc">
+      <div class="green"></div>
     </div>
-    <div class='n3'></div>
+    <div class="bfc">
+      <div class="green"></div>
+    </div>
     <hr />
+    <div>BFC 自己本身不会与浮动盒子叠加(可解决文字环绕效果)</div>
     <style>
-      .bfc4 {
+      .red-bfc {
+        float: left;
+        height: 100px;
+        background: red;
+        width: 100px;
+      }
+      .green-bfc {
+        height: 200px;
+        background: green;
+        overflow: hidden;
+      }
+    </style>
+    <div class="red-bfc"></div>
+    <div class="green-bfc"></div>
+    <hr />
+    <div>计算 BFC 的高度时, 浮动元素也参与计算(可以用来清除浮动)</div>
+    <style>
+      .bfc-border {
         overflow: hidden;
         border: 1px solid red;
       }
-      .n4 {
+      .green-float {
         height: 200px;
         width: 100px;
         background: green;
-        margin: 10px;
-        float: right;
+        margin-right: 10px;
+        float: left;
       }
     </style>
-    <div class='bfc4'>
-      <div class='n4'></div>
-      <div class='n4'></div>
-      <div class='n4'></div>
+    <div class="bfc-border">
+      <div class="green-float"></div>
+      <div class="green-float"></div>
+      <div class="green-float"></div>
     </div>
   </body>
 </html>
