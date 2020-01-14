@@ -6,10 +6,12 @@
     const img = new Image;
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    const src = "https://raw.githubusercontent.com/pbdm/img/master/1852315.jpg"; // insert image url here
-
+    // const src = "https://media.prod.mdn.mozit.cloud/attachments/2016/10/28/14295/a21a85eaccd405d608395b4ca8d82538/CORS_principle.png"; // 没有设置 Access-Control-Allow-Origin 的会报错
+    const src = "https://raw.githubusercontent.com/pbdm/img/master/1852315.jpg";
+ 
     // 如果不加这行, 则会报 Uncaught DOMException: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.
-    img.crossOrigin = "Anonymous";
+    // https://developer.mozilla.org/zh-CN/docs/Web/HTML/CORS_settings_attributes
+    img.crossOrigin = "";
 
     img.onload = function () {
       canvas.width = img.width;

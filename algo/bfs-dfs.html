@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="content">
+      <div id="a">
+        <div id="aa">
+          <div id="aaa"></div>
+          <div id="aab"></div>
+          <div id="aac"></div>
+        </div>
+        <div id="ab">
+          <div id="aba"></div>
+          <div id="abb"></div>
+          <div id="abc"></div>
+        </div>
+        <div id="ac">
+          <div id="aca"></div>
+          <div id="acb"></div>
+          <div id="acc"></div>
+        </div>
+      </div>
+      <div id="b">
+        <div id="ba">
+          <div id="baa"></div>
+          <div id="bab"></div>
+          <div id="bac"></div>
+        </div>
+        <div id="bb">
+          <div id="bba"></div>
+          <div id="bbb"></div>
+          <div id="bbc"></div>
+        </div>
+        <div id="bc">
+          <div id="bca"></div>
+          <div id="bcb"></div>
+          <div id="bcc"></div>
+        </div>
+      </div>
+      <div id="c">
+        <div id="ca">
+          <div id="caa"></div>
+          <div id="cab"></div>
+          <div id="cac"></div>
+        </div>
+        <div id="cb">
+          <div id="cba"></div>
+          <div id="cbb"></div>
+          <div id="cbc"></div>
+        </div>
+        <div id="cc">
+          <div id="cca"></div>
+          <div id="ccb"></div>
+          <div id="ccc"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // 递归 dfs
+      let dfsResult = [];
+      function dfs(dom) {
+        dfsResult.push(dom.id)
+        const childrens = dom.children;
+        Array.prototype.forEach.call(childrens, (child)=> {
+          dfs(child)
+        })
+      }
+      dfs(document.getElementById('content'));
+      console.log(dfsResult)
+
+      // 队列 bfs
+      let bfsResult = [];
+      function bfs(dom) {
+        let stack = [];
+        stack.push(dom);
+        while(stack.length) {
+          let item = stack.shift();
+          let childrens = item.children;
+          bfsResult.push(item);
+          for (let index = 0; index < childrens.length; index++) {
+            stack.push(childrens[index])
+          }
+        }
+      }
+      bfs(document.getElementById('content'));
+      console.log(bfsResult);
+    </script>
+
+  </body>
+</html>

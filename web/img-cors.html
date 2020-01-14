@@ -1,0 +1,29 @@
+<html>
+<body>
+  <img crossorigin="use-credentials"/>
+  <script>
+    // 这样使用是没有任何问题的
+    const img0 = document.getElementsByTagName('img')[0];
+    const img = document.createElement('img');
+    const img2 = document.createElement('img');
+    // const img = document.getElementsByTagName('img')[0]
+    const src = "https://raw.githubusercontent.com/pbdm/img/master/1852315.jpg"; 
+    const src2 = "https://media.prod.mdn.mozit.cloud/attachments/2016/10/28/14295/a21a85eaccd405d608395b4ca8d82538/CORS_principle.png"; // 没有 Access-Control-Allow-Origin 
+    document.body.appendChild(img);
+    document.body.appendChild(img2);
+    img.crossOrigin= "use-credentials"
+    // img.crossOrigin= ""
+    img2.crossOrigin= ""
+
+    // 会报错
+    img0.src = src;
+    //  设置为 use-credentials 时会报错
+    img.src = src;
+    // 会报错
+    img2.src = src2;
+  </script>
+
+
+</body>
+
+</html>

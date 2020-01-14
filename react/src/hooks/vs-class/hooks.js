@@ -30,6 +30,7 @@ function useCount(init) {
       console.log('cleanup ' + count)
     };
   }, [count]); // Only re-run the effect if count changes
+  
   return {
     count,
     setCount
