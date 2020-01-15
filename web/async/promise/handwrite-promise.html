@@ -1,5 +1,6 @@
 <script>
-
+// 再写的时候可以参考 https://github.com/xieranmaya/Promise3/blob/master/Promise3.js
+// https://github.com/promises-aplus/promises-tests
 
 function Promise(fn) {
   // pending fulfilled reject
@@ -25,7 +26,7 @@ Promise.prototype.catch = function(fn) {
 }
 
 // TODO
-Promise.prototype.all = function(fns) {
+Promise.all = function(fns) {
   this._all = fns; 
 }
 
