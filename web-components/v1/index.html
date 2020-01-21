@@ -1,0 +1,25 @@
+<style>
+  /* 此处并不能影响 shadow dom 里面 */
+  .coloured {
+    color: green;
+  }
+</style>
+
+<template id="my-template">
+  <div class="coloured">Red</div>
+</template>
+
+<template id="my-template-bis">
+  <style>
+    .coloured {
+      color: blue
+    }
+  </style>
+  <div class="coloured">Blue</div>
+</template>
+
+<my-template></my-template>
+
+<div id="root"></div>
+
+<script src="main.js"></script>
