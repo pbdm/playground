@@ -1,0 +1,28 @@
+{
+  "name": "promise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handwrite-promise.js",
+  "scripts": {
+    "test": "promises-aplus-tests handwrite-promise.js",
+    "test212": "promises-aplus-tests handwrite-promise.js --grep 2.1.2",
+    "test213": "promises-aplus-tests handwrite-promise.js --grep 2.1.3",
+    "test221": "promises-aplus-tests handwrite-promise.js --grep 2.2.1",
+    "test222": "promises-aplus-tests handwrite-promise.js --grep 2.2.2",
+    "test223": "promises-aplus-tests handwrite-promise.js --grep 2.2.3",
+    "test224": "promises-aplus-tests handwrite-promise.js --grep 2.2.4",
+    "test225": "promises-aplus-tests handwrite-promise.js --grep 2.2.5",
+    "test226": "promises-aplus-tests handwrite-promise.js --grep 2.2.6",
+    "test227": "promises-aplus-tests handwrite-promise.js --grep 2.2.7",
+    "test231": "promises-aplus-tests handwrite-promise.js --grep 2.3.1",
+    "test232": "promises-aplus-tests handwrite-promise.js --grep 2.3.2",
+    "test233": "promises-aplus-tests handwrite-promise.js --grep 2.3.3",
+    "test234": "promises-aplus-tests handwrite-promise.js --grep 2.3.4",
+    "test-example": "promises-aplus-tests example.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}

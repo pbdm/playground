@@ -1,51 +1,48 @@
+<!-- 手工测试 -->
+<script src="./handwrite-promise.js"></script>
 <script>
-// 再写的时候可以参考 https://github.com/xieranmaya/Promise3/blob/master/Promise3.js
-// https://github.com/promises-aplus/promises-tests
-
-function Promise(fn) {
-  // pending fulfilled reject
-  // 0 ,1, 2
-  this._state = 0
-  const resolve = (opt) => {
-    this._then(opt)
-  }
-  const reject = (opt) => {
-    this._catch(opt)    
-  }
-  fn(resolve, reject)
-}
-
-Promise.prototype.then = function(fn) {
-  this._then = fn;
-  return this;
-}
-
-Promise.prototype.catch = function(fn) {
-  this._catch = fn;
-  return this;
-}
-
-// TODO
-Promise.all = function(fns) {
-  this._all = fns; 
-}
-
-
-</script>
-<script>
-
 const promise1 = new Promise(function(resolve, reject) {
-  setTimeout(function() {
-    // resolve('foo');
-    reject('reject');
-  }, 300);
+  console.log('new promise')
+  resolve('resolve promise1')
 });
 
-promise1.then(function(value) {
-  console.log(value);
-  // expected output: "foo"
-}).catch((e) => {
-  console.log(e) 
-});
+console.log('promise1', promise1);
+
+var promise2 = promise1.then(function(value) {
+  console.log('promise2 then:', value)
+  return 'resolve promise2'
+})
+
+console.log('promise2', promise2);
+
+var promise3 = promise2.then(function(value) {
+  console.log('promise3 then:', value)
+})
+
+console.log('promise3', promise2);
+
+var p = Promise.all([
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(1)
+    })
+  }), 
+  new Promise((resolve) => {
+    resolve(2)
+  })
+]).then(value => {
+  console.log(value)
+})
+
+// console.log('promise2', promise2)
+// var promise3 = promise2.catch((e) => {
+//   console.log('reject', e)
+// });
+
+// console.log('promise3', promise3)
+
+// promise3.then(function(value) {
+//   console.log('promise3 then:', value)
+// })
 
 </script>
