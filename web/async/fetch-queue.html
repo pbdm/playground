@@ -1,0 +1,48 @@
+<script>
+
+  const obj = {
+    a: 'keya',
+    b: 'keyb'
+  }
+
+  async function query(key) {
+    const map = {
+      a: 'valuea',
+      b: 'valueb',
+    }
+    return new Promise((resolve) => {
+      setTimeout((() => {
+        resolve(map[key])
+      }))
+    })
+  }
+
+  async function get(params) {
+    const arr = Object.keys(params);
+    let res = {};
+    for (let i = 0; i < arr.length; i++) {
+      let key = arr[i]
+      const r = await query(key)
+      res[key] = r;
+    }
+    return res;
+  }
+
+  async function getPromiseAll(params) {
+    const arr = Object.keys(params);
+    let res = {};
+    await Promise.all(arr.map(async key => {
+      let r = await query(key);
+      res[key] = r;
+    }))
+    return res;
+  }
+
+  (async() => {
+    let r = await get(obj)
+    console.log(r)
+    r = await getPromiseAll(obj)
+    console.log(r)
+  })()
+
+</script>

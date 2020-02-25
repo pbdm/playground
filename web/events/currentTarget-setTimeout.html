@@ -1,0 +1,14 @@
+<title>e.currentTarget 在 setTimeout 后变为 null</title>
+<button>点我</button>
+<script>
+  const div = document.getElementsByTagName('button')[0]
+  div.addEventListener('click', (e) => {
+    console.log(e.currentTarget === null); // false
+    let b = e;
+    setTimeout(() => {
+      // 这个时候冒泡已经结束了...
+      console.log(e.currentTarget === null); // true
+      console.log(b.currentTarget === null); // true
+    })
+  });
+</script>
