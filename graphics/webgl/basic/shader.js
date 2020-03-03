@@ -1,21 +1,19 @@
-export const vsSource = `
+const vsSource = `
   // comment 
   attribute vec4 aVertexPosition;
   attribute vec4 aVertexColor;
 
-  uniform mat4 uModelViewMatrix;
-  uniform mat4 uProjectionMatrix;
-
-  varying lowp vec4 vColor;
+  varying vec4 vColor;
 
   void main(void) {
-    gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    gl_Position = aVertexPosition;
     vColor = aVertexColor;
   }
 `;
 
-export const fsSource = `
-  varying lowp vec4 vColor;
+const fsSource = `
+  precision highp float;
+  varying vec4 vColor;
   void main() {
     gl_FragColor = vColor;
   }
