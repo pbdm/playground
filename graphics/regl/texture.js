@@ -4,7 +4,7 @@
  */
 
 const image = new Image()
-image.src = '../cloud.png'
+image.src = './cloud.png'
 var imageTexture
 image.onload = render
 

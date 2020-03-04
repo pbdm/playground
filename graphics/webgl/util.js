@@ -1,5 +1,5 @@
-// 初始化着色器程序，让WebGL知道如何绘制我们的数据
-export function initShaderProgram(gl, vsSource, fsSource) {
+// 初始化着色器程序，让 WebGL 知道如何绘制我们的数据
+function initShaderProgram(gl, vsSource, fsSource) {
   const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
   const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
   // 创建着色器程序
@@ -7,64 +7,60 @@ export function initShaderProgram(gl, vsSource, fsSource) {
   gl.attachShader(shaderProgram, vertexShader);
   gl.attachShader(shaderProgram, fragmentShader);
   gl.linkProgram(shaderProgram);
-  // 创建失败， alert
-  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-    alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
-    return null;
-  }
   return shaderProgram;
 }
 
 // 创建指定类型的着色器，上传source源码并编译
-export function loadShader(gl, type, source) {
+function loadShader(gl, type, source) {
   const shader = gl.createShader(type);
   // Send the source to the shader object
   gl.shaderSource(shader, source);
   // Compile the shader program
   gl.compileShader(shader);
-  // See if it compiled successfully
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-    return null;
-  }
   return shader;
 }
 
-// 载入纹理
-export function loadTexture(gl, url) {
+// 创建数据对应的缓冲区
+function initBuffers(gl, srcData) {
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, srcData, gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, null);
+  return buffer
+}
+
+function loadTexture(url, callback) {
   const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  const level = 0;
-  const internalFormat = gl.RGBA;
-  const width = 1;
-  const height = 1;
-  const border = 0;
-  const srcFormat = gl.RGBA;
-  const srcType = gl.UNSIGNED_BYTE;
-  const pixel = new Uint8Array([0, 0, 255, 255]);  // opaque blue
-  gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border, srcFormat, srcType, pixel);
   const image = new Image();
   image.onload = function() {
     gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, srcFormat, srcType, image);
+    // 指定二维纹理图像 
+    gl.texImage2D(
+      gl.TEXTURE_2D, // target
+      0, // level
+      gl.RGBA, // internal format, 
+      gl.RGBA, // src format, 
+      gl.UNSIGNED_BYTE,  // src type
+      image // image data
+    );
     if (isPowerOf2(image.width) && isPowerOf2(image.height)) {
-       gl.generateMipmap(gl.TEXTURE_2D);
+      gl.generateMipmap(gl.TEXTURE_2D);
     } else {
-       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      // 设置纹理参数
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     }
+    gl.bindTexture(gl.TEXTURE_2D, null);
+    callback(texture)
   };
   image.src = url;
-  return texture;
   function isPowerOf2(value) {
     return (value & (value - 1)) === 0;
   }
 }
 
-// 载入文字
-export function initText(gl, text, width, height) {
+function initText(gl, text, width, height) {
   var textCtx = document.createElement("canvas").getContext("2d");
   textCtx.canvas.width  = width;
   textCtx.canvas.height = height;
@@ -83,5 +79,3 @@ export function initText(gl, text, width, height) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 }
-
-

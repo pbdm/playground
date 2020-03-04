@@ -1,3 +1,7 @@
+const mat4 = glMatrix.mat4
+const canvas = document.querySelector('#glcanvas');
+const gl = canvas.getContext('webgl');
+
 // const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 // const shaderProgram = initShaderProgram(gl, vsSourceTexture, fsSourceTexture);
 const shaderProgram = initShaderProgram(gl, vsSourceNormal, fsSourceNormal);
@@ -42,7 +46,7 @@ function render(now) {
   now *= 0.001;  // convert to seconds
   const deltaTime = now - then;
   then = now;
-  drawScene(gl, programInfo, buffers, texture, deltaTime);
+  drawScene(deltaTime);
   rotation += deltaTime;
   requestAnimationFrame(render);
 }
@@ -51,7 +55,7 @@ requestAnimationFrame(render);
 
 
 
-function drawScene(gl, programInfo, buffers, texture, deltaTime) {
+function drawScene(deltaTime) {
   gl.clearColor(0.0, 0.5, 0.0, 1.0);  // Clear to black, fully opaque
   gl.clearDepth(1.0);                 // Clear everything
   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
@@ -101,7 +105,7 @@ function drawScene(gl, programInfo, buffers, texture, deltaTime) {
   gl.bindBuffer(gl.ARRAY_BUFFER, buffers.normal);
   gl.vertexAttribPointer( programInfo.attribLocations.vertexNormal, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray( programInfo.attribLocations.vertexNormal);
-  // TODO 这里为什么在渲染立方体的时候可有可无?! ELEMENT_ARRAY_BUFFER?! 因为 ELEMENT_ARRAY_BUFFER 只用了一次, 不需要再绑定了吧?! 
+
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
 
   gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
