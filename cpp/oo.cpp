@@ -20,7 +20,7 @@ class Box
 
   // 友元函数 定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员
   friend void printWidth( Box box );
-  // 重载 + 运算符
+  // 重载 + 运算符, 当两个 Box 相加的时候运行
   Box operator+(const Box& b)
   {
     Box box;
@@ -95,6 +95,7 @@ int main() {
 
   cout << "Total objects: " << Box::objectCount << endl; // 0
 
+  // 这 + 运算符被重载了
   Box Box3 = Box1 + Box2;
   cout << Box3.height << endl; // 10
   Box1.callMe();

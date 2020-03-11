@@ -16,7 +16,7 @@ int e;
 int main()
 {
   // << 后面跟了需要打印的内容, endl 为换行
-  // 因为已经在 ste namespace 内了, 所以不需要 std::count
+  // 因为已经在 std namespace 内了, 所以不需要 std::count
   cout << setw(7) << "变量类型"<< endl;
   cout << "Size of char : " << sizeof(char) << endl; // 1
   cout << "Size of int : " << sizeof(int) << endl; //4
