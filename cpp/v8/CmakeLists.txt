@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.2)
+project(V8Demo)
+
+include_directories(
+  /Users/bopeng/c/tools/v8/include
+)
+
+link_directories(
+  /Users/bopeng/c/tools/v8/out.gn/x64.release.sample/obj
+)
+link_libraries(v8_monolith)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -pthread")
+
+set(SOURCE_FILES ./main.cc)
+
+add_executable(HelloWorld ${SOURCE_FILES})
