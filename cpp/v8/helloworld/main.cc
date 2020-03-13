@@ -23,12 +23,13 @@ int main(int argc, char* argv[]) {
   v8::Isolate* isolate = v8::Isolate::New(create_params);
   // 以下是在隔离区的一系列操作
   {
+    // 进入当前隔离区
     v8::Isolate::Scope isolate_scope(isolate);
-    // 创建一个栈分配的句柄范围(HandleScope) 来存放各个句柄
+    // 创建一个 HandleScope
     v8::HandleScope handle_scope(isolate);
-    // 创建一个上下文(context)
+    // 创建一个 context
     v8::Local<v8::Context> context = v8::Context::New(isolate);
-    // 将 context 放进 scope 进行管理
+    // 进入 context 
     v8::Context::Scope context_scope(context);
     // 在上下文编译和运行脚本
     {
