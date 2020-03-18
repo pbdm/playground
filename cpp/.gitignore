@@ -11,3 +11,5 @@ CTestTestfile.cmake
 _deps
 build
 .xmake
+# debugge 模式下的文件
+*.dSYM
