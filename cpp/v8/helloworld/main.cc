@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
     v8::HandleScope handle_scope(isolate);
     // 创建一个 context
     v8::Local<v8::Context> context = v8::Context::New(isolate);
-    // 进入 context 
+    // 进入 context
     v8::Context::Scope context_scope(context);
     // 在上下文编译和运行脚本
     {
