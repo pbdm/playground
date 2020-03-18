@@ -1,3 +1,4 @@
+# 用 xmake 就好啦
 cmake_minimum_required(VERSION 3.2)
 project(V8Demo)
 
@@ -11,7 +12,8 @@ link_directories(
 link_libraries(v8_monolith)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -pthread")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -DDEBUG")
 
-set(SOURCE_FILES ./main.cc)
+set(SOURCE_FILES ./helloworld.cc)
 
 add_executable(HelloWorld ${SOURCE_FILES})

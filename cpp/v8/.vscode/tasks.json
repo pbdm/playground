@@ -1,0 +1,26 @@
+// 废弃, 直接用 xmake 就好啦
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Helloworld",
+      "type": "shell",
+      "command": "clang++",
+      "args": [
+        "-std=c++17",
+        "-stdlib=libc++",
+        "-I/Users/bopeng/c/tools/v8/include",
+        "-L/Users/bopeng/c/tools/v8/out.gn/x64.release.sample/obj",
+        "-lv8_monolith",
+        "helloworld.cc",
+        "-o",
+        "a.out",
+        "--debug"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
