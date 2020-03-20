@@ -10,9 +10,11 @@
       // https://github.com/microsoft/vscode-cpptools/issues/3829 
       "type": "lldb",
       "request": "launch",
-      // "program": "${workspaceFolder}/build/Helloworld",
       "program": "${workspaceFolder}/build/macosx/x86_64/release/hello",
       "args": [],
+      "sourceMap": {
+        "../../src": "/Users/bopeng/c/tools/v8/src"
+      },
       "cwd": "${workspaceFolder}",
     },
     {
@@ -24,6 +26,9 @@
       // "program": "${workspaceFolder}/build/Helloworld",
       "program": "${workspaceFolder}/build/macosx/x86_64/release/shell",
       "args": [],
+      "sourceMap": {
+        "../../src": "/Users/bopeng/c/tools/v8/src"
+      },
       "cwd": "${workspaceFolder}",
     }
   ]
