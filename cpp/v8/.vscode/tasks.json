@@ -12,7 +12,8 @@
         "-I/Users/bopeng/c/tools/v8/include",
         "-L/Users/bopeng/c/tools/v8/out.gn/x64.release.sample/obj",
         "-lv8_monolith",
-        "helloworld.cc",
+        "-DV8_COMPRESS_POINTERS",
+        "shell.cc",
         "-o",
         "a.out",
         "--debug"
