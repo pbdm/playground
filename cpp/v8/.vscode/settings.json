@@ -1,0 +1,7 @@
+{
+  "xmake.customDebugConfig": {
+    "sourceMap": {
+      "../../src": "/Users/bopeng/c/tools/v8/src"
+    }, 
+  }
+}
