@@ -1,4 +1,4 @@
-# 用 xmake 就好啦
+# 用 xmake 就好啦, 这个暂时存这里备用
 cmake_minimum_required(VERSION 3.2)
 project(V8Demo)
 

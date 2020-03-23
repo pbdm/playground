@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Helloworld",
+      "label": "Build Shell.cc",
       "type": "shell",
       "command": "clang++",
       "args": [
