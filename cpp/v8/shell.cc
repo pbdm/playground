@@ -63,22 +63,28 @@ int main(int argc, char* argv[]) {
   std::unique_ptr<v8::Platform> platform = v8::platform::NewDefaultPlatform();
   v8::V8::InitializePlatform(platform.get());
   v8::V8::Initialize();
+
   v8::V8::SetFlagsFromCommandLine(&argc, argv, true);
+
   v8::Isolate::CreateParams create_params;
   create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
   v8::Isolate* isolate = v8::Isolate::New(create_params);
+
   run_shell = (argc == 1);
   int result;
   {
     v8::Isolate::Scope isolate_scope(isolate);
     v8::HandleScope handle_scope(isolate);
+    // 生成 global 对象, 并挂在全局作用域
     v8::Local<v8::Context> context = CreateShellContext(isolate);
     if (context.IsEmpty()) {
       fprintf(stderr, "Error creating context\n");
       return 1;
     }
     v8::Context::Scope context_scope(context);
+    // 处理命令行参数
     result = RunMain(isolate, platform.get(), argc, argv);
+    // 根据命令行输入运行
     if (run_shell)
       RunShell(context, platform.get());
   }
