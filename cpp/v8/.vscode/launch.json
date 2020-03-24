@@ -12,7 +12,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/build/macosx/x86_64/release/process",
       // 为了单独 传 args 还是写在这里了
-      "args": ["example.js"],
+      "args": ["count-hosts.js"],
       "cwd": "${workspaceFolder}",
     },
   ]
