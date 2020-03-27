@@ -87,7 +87,13 @@ class SmallBox : public Box {
   };
 };
 
+// class Bis{
+//  public:
+//   Bis();
+// };
+
 int main() {
+  // Bis bis = Bis();
   Box box = Box(4);
   SmallBox smallBox;
   Box* ptrBox = &box;
