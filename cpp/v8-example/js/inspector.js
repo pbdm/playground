@@ -1,3 +1,4 @@
 var a;
-a = 'd';
+a = 'dddd';
 console.log(a);
+console.log('vsss')

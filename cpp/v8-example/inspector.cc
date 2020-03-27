@@ -158,6 +158,21 @@ int RunMain(v8::Isolate* isolate, v8::Platform* platform, string& str) {
   return 0;
 }
 
+class Console : public debug::ConsoleDelegate {
+ public:
+  Console(Isolate* isolate) : isolate_(isolate){}
+ private:
+  void Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {
+    Local<String> str_obj;
+    if (!args[0]->ToString(isolate_->GetCurrentContext()).ToLocal(&str_obj)) {
+      return;
+    }
+    v8::String::Utf8Value str(isolate_, str_obj);
+    printf("Console.log: %s\n", *str);
+  };
+  Isolate* isolate_;
+};
+
 int main(int argc, char* argv[]) {
   v8::V8::InitializeICUDefaultLocation(argv[0]);
   v8::V8::InitializeExternalStartupData(argv[0]);
@@ -168,6 +183,9 @@ int main(int argc, char* argv[]) {
   v8::Isolate::CreateParams create_params;
   create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
   v8::Isolate* isolate = v8::Isolate::New(create_params);
+
+  Console console = Console(isolate);
+  v8::debug::SetConsoleDelegate(isolate, &console);
 
   int result;
   {
