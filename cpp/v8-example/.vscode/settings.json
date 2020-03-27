@@ -2,14 +2,7 @@
   "lldb.launch.sourceMap": {
     "../../src": "/Users/bopeng/c/tools/v8/src"
   },
-  "files.associations": {
-    "Untitled-*": "json",
-    "*.wxss": "css",
-    "*.vue": "html",
-    "*.cjson": "jsonc",
-    "*.wxs": "javascript",
-    "*.swan": "html",
-    "*.wxml": "html",
-    "new": "cpp"
+  "xmake.customDebugConfig": {
+    "cwd":  "${workspaceFolder}"
   }
 }

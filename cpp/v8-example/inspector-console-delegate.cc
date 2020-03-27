@@ -11,6 +11,8 @@
 using namespace std;
 using namespace v8;
 
+Isolate* isolate_;
+
 // Extracts a C string from a V8 Utf8Value.
 const char* ToCString(const v8::String::Utf8Value& value) {
   return *value ? *value : "<string conversion failed>";
@@ -39,7 +41,7 @@ v8::Local<v8::Context> CreateContext(v8::Isolate* isolate) {
   Console->Set(v8::String::NewFromUtf8Literal(isolate, "log"), v8::FunctionTemplate::New(isolate, Log));
 
   global->Set(v8::String::NewFromUtf8Literal(isolate, "version"), v8::FunctionTemplate::New(isolate, Version));
-  global->Set(v8::String::NewFromUtf8Literal(isolate, "vconsole"), Console);
+  global->Set(v8::String::NewFromUtf8Literal(isolate, "console"), Console);
   return v8::Context::New(isolate, NULL, global);
 }
 
@@ -158,6 +160,44 @@ int RunMain(v8::Isolate* isolate, v8::Platform* platform, string& str) {
   return 0;
 }
 
+class Console : public v8::debug::ConsoleDelegate {
+ public:
+  explicit Console(Isolate* isolate);
+
+ private:
+  void Assert(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Error(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Warn(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Dir(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void DirXml(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Table(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Trace(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Group(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void GroupEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void GroupCollapsed(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Clear(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Count(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Profile(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void ProfileEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void CountReset(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Info(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Debug(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Time(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void TimeLog(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void TimeEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void TimeStamp(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+};
+
+void Console::Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {
+  Local<String> str_obj;
+  if (!args[0]->ToString(isolate_->GetCurrentContext()).ToLocal(&str_obj)) {
+    return;
+  }
+  v8::String::Utf8Value str(isolate_, str_obj);
+  printf("Logged: %s\n", *str);
+}
+
 int main(int argc, char* argv[]) {
   v8::V8::InitializeICUDefaultLocation(argv[0]);
   v8::V8::InitializeExternalStartupData(argv[0]);
@@ -169,12 +209,18 @@ int main(int argc, char* argv[]) {
   create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
   v8::Isolate* isolate = v8::Isolate::New(create_params);
 
+  Console console(isolate);
+  v8::debug::SetConsoleDelegate(isolate, &console);
+
   int result;
   {
     v8::Isolate::Scope isolate_scope(isolate);
+    isolate_ = isolate;
     v8::HandleScope handle_scope(isolate);
     // 生成 global 对象, 并挂在全局作用域
     v8::Local<v8::Context> context = CreateContext(isolate);
+
+    // v8::Local<v8::Context> context = v8::Context::New(isolate);
     if (context.IsEmpty()) {
       fprintf(stderr, "Error creating context\n");
       return 1;
