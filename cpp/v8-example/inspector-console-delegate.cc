@@ -1,6 +1,7 @@
 #include <include/libplatform/libplatform.h>
 #include <include/v8.h>
 #include <src/debug/debug-interface.h>
+#include "src/base/platform/time.h"
 
 #include <assert.h>
 #include <fcntl.h>
@@ -160,36 +161,40 @@ int RunMain(v8::Isolate* isolate, v8::Platform* platform, string& str) {
   return 0;
 }
 
-class Console : public v8::debug::ConsoleDelegate {
+class Console : public debug::ConsoleDelegate {
  public:
-  explicit Console(Isolate* isolate);
+  explicit Console(Isolate* isolate) {};
+  // explicit Console() {};
 
  private:
-  void Assert(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Error(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Warn(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Dir(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void DirXml(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Table(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Trace(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Group(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void GroupEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void GroupCollapsed(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Clear(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Count(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Profile(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void ProfileEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void CountReset(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Info(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Debug(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void Time(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void TimeLog(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void TimeEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
-  void TimeStamp(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) override;
+  void Assert(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Error(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Warn(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Dir(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void DirXml(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Table(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Trace(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Group(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void GroupEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void GroupCollapsed(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Clear(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Count(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Profile(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void ProfileEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void CountReset(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Info(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Debug(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Time(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void TimeLog(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void TimeEnd(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void TimeStamp(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {};
+  void Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&);
+  Isolate* isolate_;
+  std::map<std::string, base::TimeTicks> timers_;
+  base::TimeTicks default_timer_;
 };
 
-void Console::Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {
+void Console::Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext& consoleContext) {
   Local<String> str_obj;
   if (!args[0]->ToString(isolate_->GetCurrentContext()).ToLocal(&str_obj)) {
     return;
@@ -209,7 +214,8 @@ int main(int argc, char* argv[]) {
   create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
   v8::Isolate* isolate = v8::Isolate::New(create_params);
 
-  Console console(isolate);
+  Console console = Console(isolate);
+  // Console console = Console();
   v8::debug::SetConsoleDelegate(isolate, &console);
 
   int result;
