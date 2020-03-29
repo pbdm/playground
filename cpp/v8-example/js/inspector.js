@@ -1,4 +1,5 @@
-var a;
-a = 'dddd';
+var a = {
+  a : 'b'
+};
 console.log(a);
 console.log('vsss')

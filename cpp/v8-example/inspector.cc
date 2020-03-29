@@ -160,7 +160,8 @@ int RunMain(v8::Isolate* isolate, v8::Platform* platform, string& str) {
 
 class Console : public debug::ConsoleDelegate {
  public:
-  Console(Isolate* isolate) : isolate_(isolate){}
+  Console(Isolate* isolate) : isolate_(isolate) {}
+
  private:
   void Log(const debug::ConsoleCallArguments& args, const v8::debug::ConsoleContext&) {
     Local<String> str_obj;
