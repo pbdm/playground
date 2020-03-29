@@ -1,8 +1,5 @@
 {
   "lldb.launch.sourceMap": {
     "../../src": "/Users/bopeng/c/tools/v8/v8/src"
-  },
-  "xmake.customDebugConfig": {
-    "cwd":  "${workspaceFolder}/js"
   }
 }
