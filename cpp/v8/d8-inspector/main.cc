@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
     }
     v8::Context::Scope context_scope(context);
     string str = "inspector.js";
+    // string str = "test-api.js";
     result = RunMain(isolate, platform.get(), str);
   }
   isolate->Dispose();
