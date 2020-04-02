@@ -1,25 +1,14 @@
-#pragma once
-#include "stdafx.h"
+#include "acl_cpp/lib_acl.hpp"
+#include "lib_acl.h"
 
 class http_servlet : public acl::HttpServlet {
  public:
-  http_servlet(acl::redis_client_cluster& cluster, size_t max_conns);
+  http_servlet();
   ~http_servlet();
 
   acl::session& get_session() const { return *session_; }
 
  protected:
-  // @override
-  bool doError(acl::HttpServletRequest&, acl::HttpServletResponse&);
-
-  // @override
-  bool doUnknown(acl::HttpServletRequest&, acl::HttpServletResponse&);
-
-  // @override
-  bool doGet(acl::HttpServletRequest&, acl::HttpServletResponse&);
-
-  // @override
-  bool doPost(acl::HttpServletRequest&, acl::HttpServletResponse&);
 
   // @override
   bool doWebSocket(acl::HttpServletRequest&, acl::HttpServletResponse&);

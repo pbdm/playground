@@ -1,47 +1,9 @@
 #include "http_servlet.h"
-
 #include "acl_cpp/http/websocket.hpp"
-#include "stdafx.h"
 
-http_servlet::http_servlet(acl::redis_client_cluster& cluster, size_t max_conns) {
-  // 创建 session 存储对象
-  session_ = new acl::redis_session(cluster, max_conns);
-}
+http_servlet::http_servlet() {}
 
-http_servlet::~http_servlet(void) {
-  delete session_;
-}
-
-bool http_servlet::doError(acl::HttpServletRequest&, acl::HttpServletResponse& res) {
-  res.setStatus(400);
-  res.setContentType("text/html; charset=");
-  // 发送 http 响应头
-  if (res.sendHeader() == false)
-    return false;
-
-  // 发送 http 响应体
-  acl::string buf;
-  buf.format("<root error='some error happened!' />\r\n");
-  (void)res.getOutputStream().write(buf);
-  return false;
-}
-
-bool http_servlet::doUnknown(acl::HttpServletRequest&, acl::HttpServletResponse& res) {
-  res.setStatus(400);
-  res.setContentType("text/html; charset=");
-  // 发送 http 响应头
-  if (res.sendHeader() == false)
-    return false;
-  // 发送 http 响应体
-  acl::string buf("<root error='unkown request method' />\r\n");
-  (void)res.getOutputStream().write(buf);
-  return false;
-}
-
-bool http_servlet::doGet(acl::HttpServletRequest& req, acl::HttpServletResponse& res) {
-  printf("in doGet\r\n");
-  return doPost(req, res);
-}
+http_servlet::~http_servlet(void) {}
 
 bool http_servlet::doPing(acl::websocket& in, acl::websocket& out) {
   unsigned long long len = in.get_frame_payload_len();
@@ -172,11 +134,9 @@ bool http_servlet::doWebSocket(acl::HttpServletRequest& req, acl::HttpServletRes
   acl::socket_stream& ss = req.getSocketStream();
   acl::websocket in(ss), out(ss);
 
-#if 1
   if (!sendBannder(out)) {
     return false;
   }
-#endif
 
   while (true) {
     if (in.read_frame_head() == false) {
@@ -220,22 +180,4 @@ bool http_servlet::doWebSocket(acl::HttpServletRequest& req, acl::HttpServletRes
 
   // XXX: NOT REACHED
   return false;
-}
-
-bool http_servlet::doPost(acl::HttpServletRequest& req, acl::HttpServletResponse& res) {
-  res.setContentType("text/html; charset=utf-8")  // 设置响应字符集
-      .setContentEncoding(true)                   // 设置是否压缩数据
-      .setChunkedTransferEncoding(false);         // 采用 chunk 传输方式
-
-  acl::string html_file;
-  html_file << var_cfg_html_path << "/client.html";
-  acl::string buf;
-  if (acl::ifstream::load(html_file, &buf) == false) {
-    logger_error("load %s error %s", html_file.c_str(), acl::last_serror());
-    return doError(req, res);
-  }
-
-  // 发送 http 响应体，因为设置了 chunk 传输模式，所以需要多调用一次
-  // res.write 且两个参数均为 0 以表示 chunk 传输数据结束
-  return res.write(buf) && res.write(NULL, 0);
 }
