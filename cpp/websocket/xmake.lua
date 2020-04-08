@@ -1,0 +1,6 @@
+add_cxxflags("--debug")
+set_kind("binary")
+set_languages("c++17")
+add_includedirs("/Users/bopeng/c/include")
+target("hello")
+	add_files("main.cc") 
