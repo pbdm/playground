@@ -1,17 +1,11 @@
 // https://github.com/acl-dev/acl/blob/v3.5.1/lib_acl_cpp/samples/aio/websocket/main.cpp
-#include <assert.h>
-#include <getopt.h>
-#include <unistd.h>
-
 #include "acl_cpp/lib_acl.hpp"
 
 static acl::atomic_long __aio_refer = 0;
 
-//////////////////////////////////////////////////////////////////////////////
-
 class websocket_client : public acl::http_aclient {
  public:
-  websocket_client(acl::aio_handle& handle, const char* host) : http_aclient(handle, NULL), host_(host), debug_(false), compressed_(false) { ++__aio_refer; }
+  websocket_client(acl::aio_handle& handle) : http_aclient(handle) { ++__aio_refer; }
 
   ~websocket_client(void) {
     printf("delete websocket_client!\r\n");
@@ -19,23 +13,6 @@ class websocket_client : public acl::http_aclient {
       printf("%s: stop aio engine now!\r\n", __FUNCTION__);
       handle_.stop();
     }
-  }
-
-  websocket_client& enable_debug(bool on) {
-    debug_ = on;
-    return *this;
-  }
-
- private:
-  void show_ns_addr(void) {
-    acl::string buf;
-    if (this->get_ns_addr(buf)) {
-      printf(">>> current ns addr: %s\r\n", buf.c_str());
-    } else {
-      printf(">>> current ns addr NULL\r\n");
-    }
-
-    fflush(stdout);
   }
 
  protected:
@@ -50,7 +27,6 @@ class websocket_client : public acl::http_aclient {
   // @override
   bool on_connect(void) {
     printf("--------------- connect server ok ------------\r\n");
-    show_ns_addr();
     printf(">>> begin ws_handshake\r\n");
     fflush(stdout);
 
@@ -82,14 +58,12 @@ class websocket_client : public acl::http_aclient {
   // @override
   void on_connect_timeout(void) {
     printf("connect timeout\r\n");
-    show_ns_addr();
     fflush(stdout);
   }
 
   // @override
   void on_connect_failed(void) {
     printf("connect failed\r\n");
-    show_ns_addr();
     fflush(stdout);
   }
 
@@ -105,39 +79,12 @@ class websocket_client : public acl::http_aclient {
     acl::string buf;
     header.build_response(buf);
 
-    compressed_ = header.is_transfer_gzip();
-
     printf("-----------%s: response header----\r\n", __FUNCTION__);
     printf("[%s]\r\n", buf.c_str());
     fflush(stdout);
 
     return true;
   }
-
-#if 0
-	// @override
-	bool on_http_res_body(char* data, size_t dlen)
-	{
-		if (debug_ && (!compressed_ || this->is_unzip_body())) {
-			(void) write(1, data, dlen);
-		} else {
-			printf(">>>read body: %ld\r\n", dlen);
-		}
-		return true;
-	}
-
-	// @override
-	bool on_http_res_finish(bool success)
-	{
-		printf("---------------response over-------------------\r\n");
-		printf("http finish: keep_alive=%s, success=%s\r\n",
-			keep_alive_ ? "true" : "false",
-			success ? "ok" : "failed");
-		fflush(stdout);
-
-		return keep_alive_;
-	}
-#endif
 
  protected:
   // @override
@@ -146,7 +93,7 @@ class websocket_client : public acl::http_aclient {
     fflush(stdout);
 
     char buf[128];
-    snprintf(buf, sizeof(buf), "hello, myname is zsx\r\n");
+    snprintf(buf, sizeof(buf), "hello, myname is jg\r\n");
     size_t len = strlen(buf);
 
     if (!this->ws_send_text(buf, len)) {
@@ -202,100 +149,34 @@ class websocket_client : public acl::http_aclient {
     return true;
   }
 
- private:
-  acl::string host_;
-  bool debug_;
-  bool compressed_;
 };
-
-static void usage(const char* procname) {
-  printf(
-      "usage: %s -h[help]\r\n"
-      " -s server_addr\r\n"
-      " -D [if in debug mode, default: false]\r\n"
-      " -c cocorrent\r\n"
-      " -t connect_timeout[default: 5]\r\n"
-      " -i rw_timeout[default: 5]\r\n"
-      " -N name_server[default: 8.8.8.8:53]\r\n",
-      procname);
-}
-
-static void add_dns(std::vector<acl::string>& name_servers, const char* s) {
-  acl::string buf(s);
-  const std::vector<acl::string>& tokens = buf.split2(",; \t");
-  for (std::vector<acl::string>::const_iterator cit = tokens.begin(); cit != tokens.end(); ++cit) {
-    name_servers.push_back(*cit);
-  }
-}
 
 int main(int argc, char* argv[]) {
   int ch, conn_timeout = 5, rw_timeout = 5;
-  acl::string addr("127.0.0.1:80");
-  acl::string host("www.baidu.com");
-  std::vector<acl::string> name_servers;
-  bool debug = false;
+  acl::string host("127.0.0.1:7777");
 
-  while ((ch = getopt(argc, argv, "hs:N:H:t:i:D")) > 0) {
-    switch (ch) {
-      case 'h':
-        usage(argv[0]);
-        return (0);
-      case 's':
-        addr = optarg;
-        break;
-      case 'N':
-        add_dns(name_servers, optarg);
-        break;
-      case 'H':
-        host = optarg;
-        break;
-      case 't':
-        conn_timeout = atoi(optarg);
-        break;
-      case 'i':
-        rw_timeout = atoi(optarg);
-        break;
-      case 'D':
-        debug = true;
-        break;
-      default:
-        break;
-    }
-  }
-
+	// 初始化和打开 log
   acl::acl_cpp_init();
   acl::log::stdout_open(true);
 
   // 定义 AIO 事件引擎
   acl::aio_handle handle(acl::ENGINE_KERNEL);
 
-  //////////////////////////////////////////////////////////////////////
-
-  if (name_servers.empty()) {
-    name_servers.push_back("8.8.8.8:53");
-  }
-
-  for (std::vector<acl::string>::const_iterator cit = name_servers.begin(); cit != name_servers.end(); ++cit) {
-    // 设置 DNS 域名服务器地址
-    handle.set_dns((*cit).c_str(), 5);
-  }
-
   // 开始异步连接远程 WEB 服务器
-  websocket_client* conn = new websocket_client(handle, host);
-  if (!conn->open(addr, conn_timeout, rw_timeout)) {
-    printf("connect %s error\r\n", addr.c_str());
+  websocket_client* conn = new websocket_client(handle);
+  if (!conn->open(host, conn_timeout, rw_timeout)) {
+    printf("connect %s error\r\n", host.c_str());
     fflush(stdout);
 
     delete conn;
     return 1;
   }
 
-  (*conn).enable_debug(debug);  // 是否启用调试方式
   conn->unzip_body(true);       // 针对 HTTP 自动解压
 
   // 设置 HTTP 请求头，也可将此过程放在 conn->on_connect() 里
   acl::http_header& head = conn->request_header();
-  head.set_url("/path?name1&name2").add_param("name3", "").add_param("n1", "v1").add_param("n2", "v2").add_param("n3", "").set_content_length(0).set_host(host).accept_gzip(true).set_keep_alive(true);
+  head.set_url("/").set_content_length(0).set_host(host).accept_gzip(true).set_keep_alive(true);
 
   acl::string buf;
   head.build_request(buf);
@@ -306,11 +187,13 @@ int main(int argc, char* argv[]) {
   // 开始 AIO 事件循环过程
   while (true) {
     // 如果返回 false 则表示不再继续，需要退出
-    if (!handle.check()) {
+    auto b = handle.check();
+    printf("%d\n", handle.last_nready());
+    printf(b ? "true\n" : "false\n");
+    if (!b) {
       break;
     }
   }
 
-  handle.check();
   return 0;
 }
