@@ -37,7 +37,13 @@ void do_session(tcp::socket& socket) {
     websocket::stream<tcp::socket> ws{std::move(socket)};
 
     // Set a decorator to change the Server of the handshake
-    ws.set_option(websocket::stream_base::decorator([](websocket::response_type& res) { res.set(http::field::server, std::string(BOOST_BEAST_VERSION_STRING) + " websocket-server-sync"); }));
+    ws.set_option(
+      websocket::stream_base::decorator(
+        [](websocket::response_type& res) { 
+          res.set(http::field::server, std::string(BOOST_BEAST_VERSION_STRING) + " websocket-server-sync"); 
+        }
+      )
+    );
 
     // Accept the websocket handshake
     ws.accept();
@@ -68,21 +74,30 @@ int main(int argc, char* argv[]) {
   try {
     auto const address = net::ip::make_address("127.0.0.1");
     auto const port = static_cast<unsigned short>(std::atoi("5555"));
+    auto const threads = 1;
 
     // The io_context is required for all I/O
-    net::io_context ioc{1};
+    net::io_context ioc{threads};
 
     // The acceptor receives incoming connections
     tcp::acceptor acceptor{ioc, {address, port}};
+    
+    // 靠不断的循环来接受新的连接
     for (;;) {
       // This will receive the new connection
       tcp::socket socket{ioc};
 
-      // Block until we get a connection
+      // Block until we get a connection, 如果没有连接是不会接着往下走的
       acceptor.accept(socket);
 
+      // 让新增的线程单独处理当前连接, 这样不会不会 block 当前线程
       // Launch the session, transferring ownership of the socket
-      std::thread{std::bind(&do_session, std::move(socket))}.detach();
+      std::thread {
+        std::bind(
+          &do_session, std::move(socket)
+        )
+      }.detach();
+      std::cout << " test" << std::endl;
     }
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;

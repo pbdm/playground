@@ -151,12 +151,19 @@ class listener : public std::enable_shared_from_this<listener> {
   }
 
   // Start accepting incoming connections
-  void run() { do_accept(); }
+  void run() { 
+    do_accept(); 
+  }
 
  private:
   void do_accept() {
     // The new connection gets its own strand
-    acceptor_.async_accept(net::make_strand(ioc_), beast::bind_front_handler(&listener::on_accept, shared_from_this()));
+    acceptor_.async_accept(
+      net::make_strand(ioc_), 
+      beast::bind_front_handler(
+        &listener::on_accept, shared_from_this()
+      )
+    );
   }
 
   void on_accept(beast::error_code ec, tcp::socket socket) {
@@ -198,8 +205,14 @@ int main(int argc, char* argv[]) {
   // Run the I/O service on the requested number of threads
   std::vector<std::thread> v;
   v.reserve(threads - 1);
-  for (auto i = threads - 1; i > 0; --i)
-    v.emplace_back([&ioc] { ioc.run(); });
+  // 这里是从第二个 threads 开始算的, 如果只有一个 thread 这里是不走的
+  for (auto i = threads - 1; i > 0; --i) {
+    v.emplace_back(
+      [&ioc] { 
+        ioc.run(); 
+      }
+    );
+  }
   ioc.run();
 
   return EXIT_SUCCESS;
