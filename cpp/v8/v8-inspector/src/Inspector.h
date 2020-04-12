@@ -16,7 +16,10 @@ class Inspector {
   void executeScripts();
   void onMessage(const std::string& message);
   void sendMessage(const std::string& message);
-  bool compileScript(const v8::Local<v8::String>& source, const std::string& filename, v8::Local<v8::Script>& script, const v8::TryCatch& tryCatch);
+  bool compileScript(const v8::Local<v8::String>& source,
+                     const std::string& filename,
+                     v8::Local<v8::Script>& script,
+                     const v8::TryCatch& tryCatch);
   bool executeScript(const v8::Local<v8::Script>& script, const v8::TryCatch& tryCatch);
   int waitForFrontendMessage();
 

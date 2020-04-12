@@ -1,6 +1,9 @@
 #include "v8inspector_client.h"
 
-V8InspectorClientImpl::V8InspectorClientImpl(const std::unique_ptr<v8::Platform>& platform, const v8::Local<v8::Context>& context, const std::function<void(std::string)>& onResponse, const std::function<int(void)>& onWaitFrontendMessageOnPause) {
+V8InspectorClientImpl::V8InspectorClientImpl(const std::unique_ptr<v8::Platform>& platform,
+                                             const v8::Local<v8::Context>& context,
+                                             const std::function<void(std::string)>& onResponse,
+                                             const std::function<int(void)>& onWaitFrontendMessageOnPause) {
   platform_ = platform.get();
   context_ = context;
   onWaitFrontendMessageOnPause_ = onWaitFrontendMessageOnPause;

@@ -5,10 +5,15 @@
 #include <fstream>
 #include <iostream>
 
-
 static inline std::string convertToString(v8::Isolate* isolate, const v8_inspector::StringView stringView) {
   int length = static_cast<int>(stringView.length());
-  v8::Local<v8::String> message = (stringView.is8Bit() ? v8::String::NewFromOneByte(isolate, reinterpret_cast<const uint8_t*>(stringView.characters8()), v8::NewStringType::kNormal, length) : v8::String::NewFromTwoByte(isolate, reinterpret_cast<const uint16_t*>(stringView.characters16()), v8::NewStringType::kNormal, length)).ToLocalChecked();
+  v8::Local<v8::String> message =
+      (stringView.is8Bit()
+           ? v8::String::NewFromOneByte(
+                 isolate, reinterpret_cast<const uint8_t*>(stringView.characters8()), v8::NewStringType::kNormal, length)
+           : v8::String::NewFromTwoByte(
+                 isolate, reinterpret_cast<const uint16_t*>(stringView.characters16()), v8::NewStringType::kNormal, length))
+          .ToLocalChecked();
   v8::String::Utf8Value value(isolate, message);
   return *value;
 }
@@ -19,14 +24,17 @@ static inline v8_inspector::StringView convertToStringView(const std::string& st
 }
 
 static inline v8::Local<v8::Object> parseJson(const v8::Local<v8::Context>& context, const std::string& json) {
-  v8::MaybeLocal<v8::Value> value_ = v8::JSON::Parse(context, v8::String::NewFromUtf8(context->GetIsolate(), &json[0], v8::NewStringType::kNormal).ToLocalChecked());
+  v8::MaybeLocal<v8::Value> value_ = v8::JSON::Parse(
+      context, v8::String::NewFromUtf8(context->GetIsolate(), &json[0], v8::NewStringType::kNormal).ToLocalChecked());
   if (value_.IsEmpty()) {
     return v8::Local<v8::Object>();
   }
   return value_.ToLocalChecked()->ToObject(context).ToLocalChecked();
 }
 
-static inline std::string getPropertyFromJson(v8::Local<v8::Context> context, const v8::Local<v8::Object>& jsonObject, const std::string& propertyName) {
+static inline std::string getPropertyFromJson(v8::Local<v8::Context> context,
+                                              const v8::Local<v8::Object>& jsonObject,
+                                              const std::string& propertyName) {
   v8::Local<v8::Value> key = v8::String::NewFromUtf8(context->GetIsolate(), propertyName.c_str()).ToLocalChecked();
   v8::Local<v8::Value> property = jsonObject->Get(context, key).ToLocalChecked();
   v8::String::Utf8Value utf8Value(context->GetIsolate(), property);

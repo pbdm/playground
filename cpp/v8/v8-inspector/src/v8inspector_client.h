@@ -10,7 +10,10 @@
 
 class V8InspectorClientImpl final : public v8_inspector::V8InspectorClient {
  public:
-  V8InspectorClientImpl(const std::unique_ptr<v8::Platform>& platform, const v8::Local<v8::Context>& context, const std::function<void(std::string)>& onResponse, const std::function<int(void)>& onWaitFrontendMessageOnPause);
+  V8InspectorClientImpl(const std::unique_ptr<v8::Platform>& platform,
+                        const v8::Local<v8::Context>& context,
+                        const std::function<void(std::string)>& onResponse,
+                        const std::function<int(void)>& onWaitFrontendMessageOnPause);
 
   void dispatchProtocolMessage(const v8_inspector::StringView& message_view);
 
