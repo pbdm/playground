@@ -4,6 +4,7 @@
 #include <include/libplatform/libplatform.h>
 #include <include/v8.h>
 #include <src/debug/debug-interface.h>
+#include <src/d8/d8.h>
 
 using namespace std;
 using namespace v8;
@@ -215,6 +216,8 @@ int main(int argc, char* argv[]) {
     v8::Local<v8::Context> context = CreateContext(isolate);
     // 自定义 console
     Console console = Console(isolate);
+    // TODO 貌似这里也可以用 D8 里的 console 来代替, 但是貌似要引入一些头文件
+    // v8::D8Console console(isolate);
     v8::debug::SetConsoleDelegate(isolate, &console);
     if (context.IsEmpty()) {
       fprintf(stderr, "Error creating context\n");
