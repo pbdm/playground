@@ -1,0 +1,7 @@
+add_cxxflags("--debug")
+set_kind("binary")
+add_links("uv")
+target("base")
+	add_files("base.cc") 
+target("idle")
+	add_files("idle.cc") 
