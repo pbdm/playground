@@ -1,0 +1,24 @@
+<script src="./node_modules/chai/chai.js"></script>
+<script type="module">
+  import * as q1 from './1.js'
+  import * as q2 from './2.js'
+  import * as q3 from './3.js'
+  import * as q4 from './4.js'
+  import * as q5 from './5.js'
+  window.assert = chai.assert;
+  const exam = [ q1, q2, q3, q4, q5 ];
+  exam.map(q => {
+    q.doTest();
+  });
+  setInterval(() => {
+    document.body.innerHTML = '';
+    exam.forEach((q, index) => {
+      const title = document.createElement('h2');
+      title.innerHTML = q.question;
+      const result = document.createElement('p');
+      result.innerHTML = `第${index + 1}题: ${q.testResult}`
+      document.body.appendChild(result);
+      document.body.appendChild(title);
+    })
+  }, 1000);
+</script>
