@@ -1,13 +1,10 @@
-// https://leetcode.com/problems/longest-consecutive-sequence/
+/*
+ * @lc app=leetcode.cn id=128 lang=javascript
+ *
+ * [128] 最长连续序列
+ */
 
-// Longest Consecutive Sequence
-
-// Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
-
-// For example, Given [100, 4, 200, 1, 3, 2], The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
-
-// Your algorithm should run in O(n) complexity.
-
+// @lc code=start
 var arr = [10, 5, 4, 200, 1, 3, 2, 201];
 
 // hash table(散列表, 哈希表)
@@ -65,3 +62,5 @@ var longestConsecutiveUnionFind = function(nums) {
 }
 // console.log(longestConsecutive(arr));
 console.log(longestConsecutiveUnionFind(arr));
+// @lc code=end
+
