@@ -24,7 +24,7 @@ var isPalindrome = function(x) {
 };
 */
 
-// math
+// 通过反转后比较的方法
 var isPalindrome = function(x) {
   if (x < 0 || (x % 10 === 0 && x !== 0)) {
     return false
