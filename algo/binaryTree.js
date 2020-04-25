@@ -108,11 +108,11 @@ function iterativeInorder(node) {
   while (node || stack.length) {
     if (node) {
       stack.push(node);
-      node = node.rightChild;
+      node = node.leftChild;
     } else {
       node = stack.pop();
       result.push(node.text)
-      node = node.leftChild
+      node = node.rightChild
     }
   }
 }
