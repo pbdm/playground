@@ -8,9 +8,6 @@ var getSingle = function(fn) {
     return result || ( result = fn.apply(this, arguments));
   }
 };
-
-// 策略模式:  将方法写到配置项中...
-
 // 创建缓存代理工厂
 var createProxyFactory = function(fn) {
   var cache = {};
