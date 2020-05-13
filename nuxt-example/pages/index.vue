@@ -35,7 +35,11 @@ import Logo from '~/components/Logo.vue'
 export default Vue.extend({
   components: {
     Logo
+  },
+  fetch() {
+    console.log('fetch things')
   }
+
 })
 </script>
 
