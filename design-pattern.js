@@ -1,5 +1,3 @@
-console.log('design pattern');
-
 // 通用的惰性单例
 // https://github.com/alexreardon/memoize-one 这里有一个类似的库?!
 var getSingle = function(fn) {
@@ -27,7 +25,6 @@ var proxyMult = createProxyFactory(mult);
 console.log(proxyMult(1, 2));
 console.log(proxyMult(1, 2));
 
-// 于发布订阅模式相比, 观察者模式没有中介
 // 发布订阅模式
 var event = {
   clientList: [],
@@ -71,6 +68,39 @@ event.listen('a', function() {
 })
 // 发布
 event.trigger('a', 'bb')
+
+// 与发布订阅模式相比, 观察者模式没有中介
+// 简单的观察者模式示例
+class Pubsub {
+  constructor() {
+    this.handles = {};
+  }
+  on(key, fn) {
+    if (!this.handles[key]) {
+      this.handles[key] = [];
+    }
+    this.handles[key].push(fn);
+  }
+  emit() {
+    // 取出第一个参数(type 类型)
+    const key = Array.prototype.shift.call(arguments);
+    const fns = this.handles[key];
+    if (fns && fns.length !== 0) {
+      for (let i = 0; i < fns.length; i++) {
+        fns[i].apply(this, arguments);
+      }
+      fns.length = 0; // remove all fns once we call it
+    }
+  }
+}
+const p = new Pubsub();
+p.on('a', () => {
+  console.log('here');
+});
+p.on('a', () => {
+  console.log('there');
+});
+p.emit('a');
 
 
 /**
