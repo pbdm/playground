@@ -1,0 +1,29 @@
+{
+  "name": "a",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "PBDm <pbdm@foxmail.com>",
+  "homepage": "https://github.com/pbdm/playground#readme",
+  "license": "ISC",
+  "main": "lib/a.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npm.bilibili.co/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbdm/playground.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/pbdm/playground/issues"
+  }
+}
